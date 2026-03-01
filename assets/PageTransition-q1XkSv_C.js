@@ -1,1 +1,0 @@
-import{j as i,m as a}from"./ui-vendor-4FafrdJC.js";import{M as s}from"./index-DbkyGXSz.js";const e=({children:e,className:n=""})=>i.jsx(a.div,{initial:"initial",animate:"animate",exit:"exit",variants:s.pageTransition,className:`w-full min-h-screen ${n}`,style:{willChange:"transform, opacity"},children:e});export{e as P};
