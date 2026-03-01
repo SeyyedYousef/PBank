@@ -25,6 +25,8 @@ interface AuthState {
     logout: () => Promise<void>;
     updateUser: (data: Partial<UserProfile>) => void;
     rotateTokens: () => Promise<void>;
+    is2faEnabled: boolean;
+    toggle2fa: () => void;
 }
 
 // Custom storage adapter for Zustand to use our SecureStorage
@@ -45,6 +47,9 @@ export const useAuthStore = create<AuthState>()(
             refreshToken: null,
             isLoading: false,
             error: null,
+            is2faEnabled: false,
+
+            toggle2fa: () => set((state) => ({ is2faEnabled: !state.is2faEnabled })),
 
             setTempPhone: (phone) => set({ tempPhone: phone }),
 
@@ -127,7 +132,8 @@ export const useAuthStore = create<AuthState>()(
                 tempPhone: state.tempPhone,
                 user: state.user,
                 accessToken: state.accessToken,
-                refreshToken: state.refreshToken
+                refreshToken: state.refreshToken,
+                is2faEnabled: state.is2faEnabled,
             }),
         }
     )

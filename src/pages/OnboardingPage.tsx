@@ -13,7 +13,7 @@ const stepOrder: Step[] = ['INTRO', 'PHONE', 'OTP', 'PASSWORD'];
 
 export const OnboardingPage = () => {
     const navigate = useNavigate();
-    const { login, isLoading, error, tempPhone, setTempPhone } = useAuthStore();
+    const { login, isLoading, error, tempPhone, setTempPhone, is2faEnabled } = useAuthStore();
     const [currentStep, setCurrentStep] = useState<Step>(tempPhone ? 'OTP' : 'INTRO');
     const [direction, setDirection] = useState(1);
 
@@ -29,9 +29,18 @@ export const OnboardingPage = () => {
         goToStep('OTP');
     };
 
-    const handleOtpSubmit = (otp: string) => {
+    const handleOtpSubmit = async (otp: string) => {
         console.log('OTP Submitted:', otp);
-        goToStep('PASSWORD');
+        if (is2faEnabled) {
+            goToStep('PASSWORD');
+        } else {
+            try {
+                await login(tempPhone || '', '');
+                navigate('/');
+            } catch (err) {
+                console.error('Login failed', err);
+            }
+        }
     };
 
     const handlePasswordSubmit = async (password: string) => {

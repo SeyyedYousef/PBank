@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { EmptyState } from '@/shared/ui/EmptyState';
 
 interface Contact {
     id: string;
@@ -236,12 +237,11 @@ export const ContactsPage = () => {
                 )}
 
                 {filtered.length === 0 && (
-                    <div className="text-center py-16 space-y-3">
-                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto">
-                            <User className="w-7 h-7 text-gray-600" />
-                        </div>
-                        <p className="text-gray-500 text-sm">{t('contacts.not_found', 'مخاطبی یافت نشد')}</p>
-                    </div>
+                    <EmptyState
+                        preset="contacts"
+                        title={t('contacts.not_found_title', 'مخاطبی یافت نشد')}
+                        description={t('contacts.not_found', 'می‌توانید با استفاده از دکمه افزودن، مخاطب جدیدی اضافه کنید.')}
+                    />
                 )}
             </div>
 

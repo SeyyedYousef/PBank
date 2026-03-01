@@ -21,7 +21,6 @@ const RewardsPage = lazy(() => import("@/pages/RewardsPage").then(module => ({ d
 const NotificationsPage = lazy(() => import("@/pages/NotificationsPage").then(module => ({ default: module.NotificationsPage })));
 const ContactsPage = lazy(() => import("@/pages/ContactsPage").then(module => ({ default: module.ContactsPage })));
 const TransactionDetailPage = lazy(() => import("@/pages/TransactionDetailPage").then(module => ({ default: module.TransactionDetailPage })));
-const SettingsPage = lazy(() => import("@/pages/SettingsPage").then(module => ({ default: module.SettingsPage })));
 const QRScannerPage = lazy(() => import("@/pages/QRScannerPage").then(module => ({ default: module.QRScannerPage })));
 const AnalyticsPage = lazy(() => import("@/pages/AnalyticsPage").then(module => ({ default: module.AnalyticsPage })));
 
@@ -55,7 +54,6 @@ export const AppRoutes = () => {
                             <Route path="/notifications" element={<NotificationsPage />} />
                             <Route path="/contacts" element={<ContactsPage />} />
                             <Route path="/transaction/:id" element={<TransactionDetailPage />} />
-                            <Route path="/settings" element={<SettingsPage />} />
                             <Route path="/scan" element={<QRScannerPage />} />
                             <Route path="/analytics" element={<AnalyticsPage />} />
                         </Route>

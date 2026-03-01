@@ -3,12 +3,10 @@ import { useAuthStore } from '../store/authStore';
 import { useWalletStore } from '@/store/walletStore';
 import { usePrivacy } from '@/shared/context/PrivacyContext';
 import { useGamification } from '@/shared/context/GamificationContext';
-import { useTheme } from '@/shared/context/ThemeContext';
+
 import {
     User, LogOut, Check, Eye, EyeOff, Edit2, Crown, Shield,
-    TrendingUp, TrendingDown, ChevronRight, Globe, Moon, Bell,
-    Key, Smartphone, Fingerprint, Lock, Sparkles, BarChart3,
-    Wallet, ArrowUpRight, ArrowDownLeft, Settings2
+    Sparkles, BarChart3, Settings2
 } from 'lucide-react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
@@ -16,22 +14,20 @@ import { SkeletonProfile } from '@/shared/ui/Skeleton';
 import { useSound } from '@/shared/hooks/useSound';
 import { ProfileEditModal } from '@/features/profile/ProfileEditModal';
 import { useTranslation } from 'react-i18next';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
-
+import { AnalyticsSection } from '@/features/profile/components/AnalyticsSection';
+import { SecuritySection } from '@/features/profile/components/SecuritySection';
+import { SettingsSection } from '@/features/profile/components/SettingsSection';
 import { AnimatedNumber } from '@/shared/ui/AnimatedNumber';
-import { ProgressRing } from '@/shared/ui/ProgressRing';
-import { SecurityToggleSwitch } from '@/shared/ui/SecurityToggleSwitch';
 
 // ═══════════════════════════════════════════════
 // MAIN PROFILE PAGE
 // ═══════════════════════════════════════════════
 export const ProfilePage = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { logout, user } = useAuthStore();
-    const { balance, transactions } = useWalletStore();
-    const { theme, setTheme } = useTheme();
+    const { balance } = useWalletStore();
     const { playClick } = useSound();
-    const { isPrivacyMode, togglePrivacy, biometricEnabled, toggleBiometric, incognitoKeyboardEnabled, toggleIncognitoKeyboard, geoFencingEnabled, toggleGeoFencing } = usePrivacy();
+    const { isPrivacyMode, togglePrivacy } = usePrivacy();
     const { level, xp, nextLevelXp, tierName } = useGamification();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [imgError, setImgError] = useState(false);
@@ -39,7 +35,7 @@ export const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 600);
+        const timer = setTimeout(() => setIsLoading(false), 200);
         return () => clearTimeout(timer);
     }, []);
 
@@ -64,35 +60,7 @@ export const ProfilePage = () => {
         rotateY.set(0);
     };
 
-    // ── Analytics Data ──
-    const totalSent = transactions.filter(t => t.type === 'send').reduce((s, t) => s + t.amount, 0);
-    const totalReceived = transactions.filter(t => t.type === 'receive' || t.type === 'deposit').reduce((s, t) => s + t.amount, 0);
-    const totalExpenses = totalSent;
-    const totalIncome = totalReceived;
 
-    // Chart data
-    const chartData = transactions.slice().reverse().reduce((acc: { value: number }[], tx) => {
-        const prev = acc.length > 0 ? acc[acc.length - 1].value : balance - totalReceived + totalSent;
-        const next = tx.type === 'send' ? prev - tx.amount : prev + tx.amount;
-        acc.push({ value: next });
-        return acc;
-    }, []);
-
-    if (chartData.length === 0) chartData.push({ value: balance });
-
-    // Spending categories
-    const categories = [
-        { name: 'خرید', amount: 2100, color: '#7F00FF', percent: 35 },
-        { name: 'قبوض', amount: 1800, color: '#00E8DB', percent: 30 },
-        { name: 'تفریح', amount: 900, color: '#BF55EC', percent: 15 },
-        { name: 'حمل‌ونقل', amount: 700, color: '#FFC700', percent: 12 },
-        { name: 'سایر', amount: 500, color: '#FF2E63', percent: 8 },
-    ];
-
-    // Financial health score
-    const savingsRatio = totalIncome > 0 ? ((totalIncome - totalExpenses) / totalIncome * 100) : 50;
-    const healthScore = Math.round(Math.max(0, Math.min(100, savingsRatio + 50)));
-    const healthColor = healthScore >= 70 ? '#00FF94' : healthScore >= 40 ? '#FFC700' : '#FF2E63';
 
     // Tier badge
     const getTierGlow = () => {
@@ -261,366 +229,13 @@ export const ProfilePage = () => {
                         {/* ═══ SECTION CONTENT ═══ */}
                         <AnimatePresence mode="wait">
                             {/* ── ANALYTICS DASHBOARD ── */}
-                            {activeSection === 'analytics' && (
-                                <motion.div
-                                    key="analytics"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    className="space-y-6"
-                                >
-                                    {/* Balance Chart */}
-                                    <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('profile.stats_widget.title', 'روند موجودی')}</p>
-                                                <p className="text-white font-black text-xl mt-1">
-                                                    {isPrivacyMode ? '•••' : `${balance.toLocaleString()} AFN`}
-                                                </p>
-                                            </div>
-                                            <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold ${totalIncome >= totalExpenses ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'
-                                                }`}>
-                                                {totalIncome >= totalExpenses ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                                                {totalIncome > 0 ? `${Math.round((totalIncome - totalExpenses) / totalIncome * 100)}%` : '0%'}
-                                            </div>
-                                        </div>
-                                        <div className="h-28 w-full -mx-2 -mb-2">
-                                            <ResponsiveContainer width="100%" height="100%">
-                                                <AreaChart data={chartData}>
-                                                    <defs>
-                                                        <linearGradient id="profileGrad" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="5%" stopColor="#7F00FF" stopOpacity={0.3} />
-                                                            <stop offset="95%" stopColor="#7F00FF" stopOpacity={0} />
-                                                        </linearGradient>
-                                                    </defs>
-                                                    <Area type="monotone" dataKey="value" stroke="#7F00FF" strokeWidth={2.5} fill="url(#profileGrad)" />
-                                                </AreaChart>
-                                            </ResponsiveContainer>
-                                        </div>
-                                    </div>
-
-                                    {/* Income / Expense Cards */}
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="omega-glass rounded-2xl p-4">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-8 h-8 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                                                    <ArrowDownLeft className="w-4 h-4 text-emerald-400" />
-                                                </div>
-                                                <span className="text-gray-400 text-[10px] font-bold uppercase">درآمد</span>
-                                            </div>
-                                            <p className="text-emerald-400 font-black text-lg">
-                                                {isPrivacyMode ? '•••' : `+${totalIncome.toLocaleString()}`}
-                                            </p>
-                                        </div>
-                                        <div className="omega-glass rounded-2xl p-4">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-8 h-8 rounded-xl bg-red-500/15 flex items-center justify-center">
-                                                    <ArrowUpRight className="w-4 h-4 text-red-400" />
-                                                </div>
-                                                <span className="text-gray-400 text-[10px] font-bold uppercase">هزینه</span>
-                                            </div>
-                                            <p className="text-red-400 font-black text-lg">
-                                                {isPrivacyMode ? '•••' : `-${totalExpenses.toLocaleString()}`}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Spending Breakdown */}
-                                    <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">خلاصه هزینه‌ها</p>
-                                        <div className="space-y-3">
-                                            {categories.map((cat, i) => (
-                                                <motion.div
-                                                    key={cat.name}
-                                                    initial={{ opacity: 0, x: -10 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: i * 0.05 }}
-                                                    className="flex items-center gap-3"
-                                                >
-                                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
-                                                    <span className="text-white text-sm font-bold flex-1">{cat.name}</span>
-                                                    <div className="flex-1 max-w-[120px]">
-                                                        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                                                            <motion.div
-                                                                className="h-full rounded-full"
-                                                                style={{ backgroundColor: cat.color }}
-                                                                initial={{ width: 0 }}
-                                                                animate={{ width: `${cat.percent}%` }}
-                                                                transition={{ delay: 0.3 + i * 0.1, duration: 0.8 }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <span className="text-gray-400 text-xs font-mono w-10 text-left">{cat.percent}%</span>
-                                                </motion.div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Financial Health */}
-                                    <div className="omega-glass rounded-[24px] p-5">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-4">{t('profile.hub.groups.security', 'سلامت مالی')}</p>
-                                        <div className="flex items-center gap-6">
-                                            <ProgressRing percent={healthScore} size={80} stroke={6} color={healthColor}>
-                                                <span className="text-xl font-black" style={{ color: healthColor }}>{healthScore}</span>
-                                            </ProgressRing>
-                                            <div className="space-y-2 flex-1">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                                                    <span className="text-white text-xs font-bold">پس‌انداز: {Math.max(0, Math.round(savingsRatio))}%</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-2 h-2 rounded-full bg-primary" />
-                                                    <span className="text-white text-xs font-bold">تراکنش‌ها: {transactions.length}</span>
-                                                </div>
-                                                <p className="text-gray-500 text-[10px]">
-                                                    {healthScore >= 70 ? 'وضعیت مالی عالی 🎉' : healthScore >= 40 ? 'وضعیت مالی متوسط' : 'نیاز به توجه بیشتر'}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
+                            {activeSection === 'analytics' && <AnalyticsSection key="analytics" />}
 
                             {/* ── SECURITY HUB ── */}
-                            {activeSection === 'security' && (
-                                <motion.div
-                                    key="security"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    className="space-y-6"
-                                >
-                                    {/* Security Score */}
-                                    <div className="omega-glass rounded-[24px] p-5 relative overflow-hidden scan-line-overlay">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent" />
-                                        <div className="relative z-10">
-                                            <div className="flex items-center justify-between mb-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                                        <Shield className="w-5 h-5 text-emerald-400" />
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-white font-bold text-sm">{t('settings.security', 'مرکز امنیت')}</p>
-                                                        <p className="text-gray-500 text-[10px]">{t('profile.hub.groups.security', 'سطح حفاظت حساب')}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/20">
-                                                    <Shield className="w-3 h-3 text-emerald-400" />
-                                                    <span className="text-emerald-400 text-[10px] font-black">
-                                                        {[biometricEnabled, incognitoKeyboardEnabled, geoFencingEnabled].filter(Boolean).length + 1}/4
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* Security level bar */}
-                                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                                                <motion.div
-                                                    className="h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-full"
-                                                    initial={{ width: 0 }}
-                                                    animate={{ width: `${(([biometricEnabled, incognitoKeyboardEnabled, geoFencingEnabled].filter(Boolean).length + 1) / 4) * 100}%` }}
-                                                    transition={{ duration: 1 }}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Security Toggles */}
-                                    <div className="omega-glass rounded-[24px] overflow-hidden divide-y divide-white/5">
-                                        {[
-                                            {
-                                                icon: <Fingerprint className={biometricEnabled ? 'text-emerald-400' : 'text-gray-500'} />,
-                                                title: t('settings.biometric', 'اثر انگشت / Face ID'),
-                                                desc: t('settings.biometric_desc', 'تایید بیومتریک برای هر تراکنش'),
-                                                enabled: biometricEnabled,
-                                                onToggle: toggleBiometric,
-                                            },
-                                            {
-                                                icon: <Lock className={incognitoKeyboardEnabled ? 'text-emerald-400' : 'text-gray-500'} />,
-                                                title: t('settings.secure_keyboard', 'کیبورد امن'),
-                                                desc: t('settings.secure_keyboard_desc', 'صفحه‌کلید تصادفی داخلی'),
-                                                enabled: incognitoKeyboardEnabled,
-                                                onToggle: toggleIncognitoKeyboard,
-                                            },
-                                            {
-                                                icon: <Globe className={geoFencingEnabled ? 'text-emerald-400' : 'text-gray-500'} />,
-                                                title: 'محدودیت جغرافیایی',
-                                                desc: 'قفل خودکار خارج از مرزها',
-                                                enabled: geoFencingEnabled,
-                                                onToggle: toggleGeoFencing,
-                                            },
-                                        ].map((item, i) => (
-                                            <motion.div
-                                                key={i}
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: i * 0.08 }}
-                                                className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors"
-                                            >
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
-                                                        {item.icon}
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-white font-bold text-sm">{item.title}</p>
-                                                        <p className="text-gray-500 text-[10px]">{item.desc}</p>
-                                                    </div>
-                                                </div>
-                                                <SecurityToggleSwitch enabled={item.enabled} onToggle={() => { item.onToggle(); playClick(); }} />
-                                            </motion.div>
-                                        ))}
-                                    </div>
-
-                                    {/* Active Sessions */}
-                                    <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.devices', 'نشست‌های فعال')}</p>
-                                            <span className="bg-emerald-500/15 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">3 دستگاه</span>
-                                        </div>
-
-                                        {/* Mini Map */}
-                                        <div className="w-full h-36 bg-gradient-to-br from-blue-900/20 to-purple-900/10 rounded-2xl border border-white/10 relative overflow-hidden">
-                                            <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 200 100" preserveAspectRatio="none">
-                                                <path d="M0 100 L30 70 L60 85 L90 60 L120 75 L150 50 L180 65 L200 40 L200 100 Z" fill="currentColor" className="text-blue-500/30" />
-                                            </svg>
-
-                                            {/* Device pins */}
-                                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                                                <div className="relative">
-                                                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-ping absolute inset-0" />
-                                                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500 relative z-10 border-2 border-white shadow" />
-                                                </div>
-                                                <span className="text-[8px] font-bold text-white mt-1 bg-black/60 px-1.5 rounded">کابل</span>
-                                            </div>
-                                            <div className="absolute top-1/3 left-1/4 flex flex-col items-center opacity-60">
-                                                <div className="w-2.5 h-2.5 rounded-full bg-gray-400 border border-white shadow" />
-                                                <span className="text-[7px] text-gray-400 mt-0.5">مشهد</span>
-                                            </div>
-                                            <div className="absolute top-2/3 right-1/4 flex flex-col items-center opacity-40">
-                                                <div className="w-2.5 h-2.5 rounded-full bg-gray-500 border border-white shadow" />
-                                                <span className="text-[7px] text-gray-500 mt-0.5">شیراز</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Session list */}
-                                        <div className="space-y-2">
-                                            {[
-                                                { name: 'iPhone 15 Pro', location: 'کابل', status: 'فعال', active: true },
-                                                { name: 'Windows 11', location: 'مشهد', status: '۲ ساعت پیش', active: false },
-                                                { name: 'Samsung S21', location: 'شیراز', status: '۵ روز پیش', active: false },
-                                            ].map((session, i) => (
-                                                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
-                                                    <div className="flex items-center gap-3">
-                                                        <Smartphone className={`w-4 h-4 ${session.active ? 'text-emerald-400' : 'text-gray-500'}`} />
-                                                        <div>
-                                                            <p className="text-white text-xs font-bold">{session.name}</p>
-                                                            <p className="text-gray-500 text-[10px]">{session.location}</p>
-                                                        </div>
-                                                    </div>
-                                                    <span className={`text-[10px] font-bold ${session.active ? 'text-emerald-400' : 'text-gray-600'}`}>
-                                                        {session.active && <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />}
-                                                        {session.status}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
+                            {activeSection === 'security' && <SecuritySection key="security" />}
 
                             {/* ── SETTINGS ── */}
-                            {activeSection === 'settings' && (
-                                <motion.div
-                                    key="settings"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    className="space-y-6"
-                                >
-                                    {/* Language Switcher */}
-                                    <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.language', 'زبان برنامه')}</p>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            {[
-                                                { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
-                                                { code: 'en', name: 'English', flag: '🇬🇧' },
-                                                { code: 'ps', name: 'پشتو', flag: '🇦🇫' },
-                                            ].map(lang => (
-                                                <button
-                                                    key={lang.code}
-                                                    onClick={() => { i18n.changeLanguage(lang.code); playClick(); }}
-                                                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all group ${i18n.language === lang.code ? 'bg-primary/10 border-primary/40 shadow-[0_0_20px_rgba(127,0,255,0.1)]' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
-                                                >
-                                                    <span className="text-3xl group-hover:scale-125 transition-transform">{lang.flag}</span>
-                                                    <span className="text-white text-xs font-bold">{lang.name}</span>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Theme Switcher */}
-                                    <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.theme', 'تم برنامه')}</p>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            {[
-                                                { id: 'dark', name: t('settings.theme_dark', 'تاریک'), icon: Moon, gradient: 'from-gray-900 to-black' },
-                                                { id: 'light', name: t('settings.theme_light', 'روشن'), icon: Sparkles, gradient: 'from-gray-200 to-white' },
-                                                { id: 'cyber', name: 'سایبرپانک', icon: Sparkles, gradient: 'from-purple-900 to-primary' },
-                                            ].map(themeItem => (
-                                                <button
-                                                    key={themeItem.id}
-                                                    onClick={() => { setTheme(themeItem.id as any); playClick(); }}
-                                                    className={`relative overflow-hidden flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${theme === themeItem.id
-                                                        ? 'border-primary/40 bg-primary/10 shadow-lg shadow-primary/10'
-                                                        : 'border-white/10 bg-white/5 hover:bg-white/10'
-                                                        }`}
-                                                >
-                                                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${themeItem.gradient} flex items-center justify-center border border-white/10`}>
-                                                        <themeItem.icon className={`w-5 h-5 ${theme === 'dark' || themeItem.id === 'dark' ? 'text-white' : (themeItem.id === 'light' ? 'text-amber-500' : 'text-white')}`} />
-                                                    </div>
-                                                    <span className={`text-xs font-bold ${themeItem.id === 'light' && theme === 'light' ? 'text-gray-800' : 'text-white'}`}>{themeItem.name}</span>
-                                                    {theme === themeItem.id && (
-                                                        <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-primary flex items-center justify-center">
-                                                            <Check className="w-2 h-2 text-white" />
-                                                        </div>
-                                                    )}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* More Settings */}
-                                    <div className="omega-glass rounded-[24px] overflow-hidden divide-y divide-white/5">
-                                        {[
-                                            { icon: <Bell className="text-blue-400" />, title: t('settings.notifications_label', 'اعلان‌ها'), desc: 'مدیریت نوتیفیکیشن‌ها' },
-                                            { icon: <Key className="text-amber-400" />, title: t('settings.change_password', 'تغییر رمز عبور'), desc: 'به‌روزرسانی رمز امنیتی' },
-                                            { icon: <Wallet className="text-emerald-400" />, title: 'حساب‌های بانکی', desc: 'حساب‌های متصل' },
-                                        ].map((item, i) => (
-                                            <motion.button
-                                                key={i}
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: i * 0.05 }}
-                                                className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors text-right"
-                                            >
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
-                                                        {item.icon}
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-white font-bold text-sm">{item.title}</p>
-                                                        <p className="text-gray-500 text-[10px]">{item.desc}</p>
-                                                    </div>
-                                                </div>
-                                                <ChevronRight className="w-4 h-4 text-gray-600 rtl:rotate-180" />
-                                            </motion.button>
-                                        ))}
-                                    </div>
-
-                                    <div className="text-center py-4">
-                                        <p className="text-gray-700 text-[10px] font-mono">PBank v2.0.0 • Build 2026.02</p>
-                                    </div>
-                                </motion.div>
-                            )}
+                            {activeSection === 'settings' && <SettingsSection key="settings" />}
                         </AnimatePresence>
 
                         <ProfileEditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} />

@@ -6,6 +6,7 @@ import { usePrivacy } from '@/shared/context/PrivacyContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { SkeletonPage } from '@/shared/ui/Skeleton';
+import { EmptyState } from '@/shared/ui/EmptyState';
 import {
     ArrowUpRight, ArrowDownLeft, Download as DepositIcon,
     Search, Calendar, X
@@ -24,7 +25,7 @@ export const HistoryPage = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 800);
+        const timer = setTimeout(() => setIsLoading(false), 200);
         return () => clearTimeout(timer);
     }, []);
 
@@ -177,12 +178,12 @@ export const HistoryPage = () => {
                     {isLoading ? (
                         <SkeletonPage />
                     ) : grouped.length === 0 ? (
-                        <div className="text-center py-16 space-y-3">
-                            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto">
-                                <Calendar className="w-7 h-7 text-gray-600" />
-                            </div>
-                            <p className="text-gray-500 text-sm">{t('history.empty', 'تراکنشی یافت نشد')}</p>
-                        </div>
+                        <EmptyState
+                            preset="transactions"
+                            title={t('history.empty_title', 'تاریخچه تراکنش‌ها خالی است')}
+                            description={t('history.empty', 'هیچ تراکنشی یافت نشد. می‌توانید با ارسال یا دریافت پول شروع کنید.')}
+                            icon={Calendar}
+                        />
                     ) : (
                         grouped.map(([date, txs], gi) => (
                             <motion.div

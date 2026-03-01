@@ -21,7 +21,7 @@ export const MainLayout = () => {
             </div>
 
             {/* Scrollable Content */}
-            <div className="max-w-md mx-auto min-h-screen pb-28 px-0 relative z-10">
+            <main className="max-w-md mx-auto min-h-screen pb-28 px-0 relative z-10" role="main">
                 <motion.div
                     initial="initial"
                     animate="animate"
@@ -31,7 +31,7 @@ export const MainLayout = () => {
                 >
                     <Outlet />
                 </motion.div>
-            </div>
+            </main>
 
             {/* Floating Nav */}
             <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-5 pointer-events-none">

@@ -33,7 +33,7 @@ export const HomePage = () => {
 
     // Simulate initial data loading
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 800);
+        const timer = setTimeout(() => setIsLoading(false), 200);
         return () => clearTimeout(timer);
     }, []);
 
@@ -63,10 +63,12 @@ export const HomePage = () => {
                     <button
                         onClick={togglePrivacy}
                         className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all border border-white/5"
+                        aria-label={isPrivacyMode ? t('profile.show_balance', 'نمایش موجودی') : t('profile.hide_balance', 'مخفی کردن موجودی')}
+                        aria-pressed={isPrivacyMode}
                     >
                         {isPrivacyMode
-                            ? <EyeOff className="w-4 h-4 text-gray-400" />
-                            : <Eye className="w-4 h-4 text-primary-glow" />
+                            ? <EyeOff className="w-4 h-4 text-gray-400" aria-hidden="true" />
+                            : <Eye className="w-4 h-4 text-primary-glow" aria-hidden="true" />
                         }
                     </button>
                     <button
@@ -123,23 +125,26 @@ export const HomePage = () => {
                         <div className="relative z-10 flex gap-3 mt-6">
                             <button
                                 onClick={() => navigate('/transfer')}
+                                aria-label={t('home.send')}
                                 className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-sm transition-all shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 active:scale-95"
                             >
-                                <Send className="w-4 h-4" />
+                                <Send className="w-4 h-4" aria-hidden="true" />
                                 {t('home.send')}
                             </button>
                             <button
                                 onClick={() => navigate('/receive')}
+                                aria-label={t('home.receive_btn')}
                                 className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white/8 hover:bg-white/12 text-white font-bold text-sm transition-all border border-white/10 hover:border-white/20 active:scale-95"
                             >
-                                <Download className="w-4 h-4" />
+                                <Download className="w-4 h-4" aria-hidden="true" />
                                 {t('home.receive_btn')}
                             </button>
                         </div>
                     </motion.div>
 
                     {/* Quick Services */}
-                    <motion.div
+                    <motion.section
+                        aria-label={t('home.quick_access', 'دسترسی سریع')}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
@@ -173,7 +178,7 @@ export const HomePage = () => {
                                 </motion.button>
                             ))}
                         </div>
-                    </motion.div>
+                    </motion.section>
 
                     {/* Promo Banner */}
                     <motion.div
@@ -196,7 +201,8 @@ export const HomePage = () => {
                     </motion.div>
 
                     {/* Recent Transactions */}
-                    <motion.div
+                    <motion.section
+                        aria-label={t('home.recent_transactions', 'تراکنش‌های اخیر')}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5, duration: 0.6 }}
@@ -259,7 +265,7 @@ export const HomePage = () => {
                                 )}
                             </AnimatePresence>
                         </div>
-                    </motion.div>
+                    </motion.section>
                 </div>
             )}
         </PageTransition>

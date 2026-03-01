@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import {
-    ArrowLeft, Bell, Send, Gift, Shield, Star,
+    ArrowLeft, Send, Gift, Shield, Star,
     Trash2, Check, CheckCheck, Info
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { EmptyState } from '@/shared/ui/EmptyState';
 
 type NotifType = 'transaction' | 'security' | 'reward' | 'system' | 'promo';
 
@@ -130,16 +131,11 @@ export const NotificationsPage = () => {
             <div className="px-6 mt-4 space-y-2">
                 <AnimatePresence>
                     {filtered.length === 0 ? (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-center py-20 space-y-4"
-                        >
-                            <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto">
-                                <Bell className="w-8 h-8 text-gray-600" />
-                            </div>
-                            <p className="text-gray-500 text-sm">{t('notifications.empty', 'اعلان جدیدی وجود ندارد')}</p>
-                        </motion.div>
+                        <EmptyState
+                            preset="notifications"
+                            title={t('notifications.empty_title', 'صندوق پیام‌ها خالی است')}
+                            description={t('notifications.empty', 'اعلان جدیدی وجود ندارد. پیام‌های جدید در اینجا نمایش داده خواهند شد.')}
+                        />
                     ) : (
                         filtered.map((notif, i) => {
                             const color = getNotifColor(notif.type);
