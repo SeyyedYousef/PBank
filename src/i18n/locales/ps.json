@@ -1,0 +1,404 @@
+{
+    "common": {
+        "loading": "د پورته کیدو په حال کې...",
+        "back": "شاته",
+        "cancel": "لغوه کول",
+        "save": "ثبت کول",
+        "copy": "کاپی",
+        "copied": "کاپي شو!",
+        "share": "شریکول",
+        "submit": "دوام",
+        "start": "پیل کړئ",
+        "next": "بل",
+        "explore": "سپړنه پیل کړئ",
+        "edit": "سمول",
+        "delete": "لرې کول",
+        "confirm": "تایید",
+        "unknown": "ناپیژندل شوی",
+        "search": "لټون",
+        "close": "تړل",
+        "retry": "بیا هڅه",
+        "send": "لیږل",
+        "receive": "ترلاسه کول",
+        "free": "وړیا",
+        "no_data": "هیڅ معلومات ونه موندل شول",
+        "version": "نسخه",
+        "success": "عملیات بریالی شو",
+        "error": "تیروتنه",
+        "offline": "د انټرنیټ اتصال قطع شو",
+        "online": "اتصال بیرته رامنځته شو"
+    },
+    "validation": {
+        "required": "دا ساحه اړینه ده",
+        "min_length": "باید لږ تر لږه {{min}} حروف ولري",
+        "max_length": "باید ډیره ترینه {{max}} حروف ولري",
+        "invalid_email": "ناسم بریښنالیک پته",
+        "invalid_username": "د کارن نوم فارمټ ناسم دی",
+        "invalid_phone": "شمیره ناسمه ده",
+        "passwords_mismatch": "رمزونه سره سمون نه لري",
+        "image_size": "د انځور اندازه ډیره ده (اعظمي ۵ مګابایټ)",
+        "generic_error": "د اعتبار سنجي پر مهال تیروتنه رامنځته شوه"
+    },
+    "nav": {
+        "home": "کور",
+        "history": "تاریخچه",
+        "services": "خدمتونه",
+        "profile": "پروفایل"
+    },
+    "home": {
+        "welcome": "ښه راغلاست",
+        "balance": "ټوله شتمني",
+        "hide_balance": "شتمني پټول",
+        "show_balance": "شتمني ښکاره کول",
+        "actions": {
+            "transfer": "لیږل",
+            "receive": "ترلاسه کول",
+            "history": "تاریخچه",
+            "scan": "سکین",
+            "more": "نور"
+        },
+        "quick_services": "ګړندي خدمتونه",
+        "recent_transactions": "وروستۍ راکړې ورکړې",
+        "view_all": "ټول وګورئ",
+        "promo_banner": "د موبایل شارژ ځانګړې تخفیف",
+        "greeting": {
+            "morning": "سهار مو په خیر",
+            "afternoon": "غرمه مو په خیر",
+            "evening": "ماښام مو په خیر",
+            "night": "شپه مو په خیر"
+        },
+        "guest_user": "میلمه کارونکی",
+        "send": "لیږل",
+        "receive_btn": "ترلاسه کول",
+        "quick_access": "ګړندی لاسرسی",
+        "all_services": "ټول خدمتونه",
+        "this_month": "دا میاشت",
+        "no_transactions": "تر اوسه پورې هیڅ راکړه ورکړه نه ده",
+        "all": "ټول",
+        "promo_title": "۲۰٪ د موبایل شارژ تخفیف",
+        "promo_subtitle": "د نویو کارونکو لپاره • تر نن پایانې پورې",
+        "services": {
+            "charge": "شارژ",
+            "electricity": "بریښنا",
+            "flight": "الوتنه",
+            "tax": "مالیه"
+        }
+    },
+    "transfer": {
+        "title": "پیسې لیږل",
+        "network": "P-Chain شبکه",
+        "tabs": {
+            "address": "د بټوې پته",
+            "qr": "QR سکین",
+            "radar": "نږدې رادار"
+        },
+        "amount": {
+            "label": "د لیږد مقدار دننه کړئ",
+            "placeholder": "۰",
+            "currency": "افغانی"
+        },
+        "secure_keyboard": "خوندي کیبورډ فعال دی",
+        "destination": {
+            "label": "د ترلاسه کونکي پته",
+            "placeholder": "د ترلاسه کونکي بټوې پته (0x...)"
+        },
+        "message": {
+            "label": "پیغام",
+            "placeholder": "یادداشت، د... (اختیاری)"
+        },
+        "recent_contacts": "وروستي اړیکې",
+        "confirm_title": "د لیږد تایید",
+        "confirm_desc": "ایا تاسو ډاډه یاست چې {{amount}} ؋ لیږئ؟",
+        "qr": {
+            "instruction": "کامره QR کوډ ته ونیسئ",
+            "back": "لاسي ته راستنیدل"
+        },
+        "submit": "تایید او لیږل",
+        "success": "راکړه ورکړه بریالۍ شوه!",
+        "fee": "فیس"
+    },
+    "receive": {
+        "title": "پیسې ترلاسه کول",
+        "qr_label": "ستاسو QR کوډ",
+        "pbank_id": "PBank شناسه",
+        "request_amount": "مشخص مقدار غوښتنه",
+        "share": "کوډ شریکول",
+        "copied": "شناسه کاپي شوه!"
+    },
+    "history": {
+        "title": "تاریخچه",
+        "search_placeholder": "په راکړو ورکړو کې لټون...",
+        "filter": {
+            "all": "ټول",
+            "send": "لیږل",
+            "receive": "ترلاسه",
+            "deposit": "جمع"
+        },
+        "summary": {
+            "total_sent": "ټول لیږل شوي",
+            "total_received": "ټول ترلاسه شوي",
+            "count": "د راکړو ورکړو شمیر"
+        },
+        "empty": "هیڅ مورد ونه موندل شو",
+        "today": "نن",
+        "yesterday": "پرون",
+        "this_week": "دا اونۍ",
+        "older": "پخوانی",
+        "details": {
+            "title": "د راکړې ورکړې جزئیات",
+            "counterparty": "اړونده خوا",
+            "amount": "مقدار",
+            "date": "نیټه",
+            "time": "وخت",
+            "fee": "فیس",
+            "note": "توضیحات",
+            "message": "پیغام",
+            "status": "حالت",
+            "success_receive": "په بریالیتوب ترلاسه شو",
+            "success_send": "په بریالیتوب لیږل شو",
+            "tracking_code": "د تعقیب کوډ",
+            "tracking_copied": "د تعقیب کوډ کاپي شو",
+            "share": "رسید شریکول",
+            "repeat": "راکړه ورکړه تکرار کړئ",
+            "copy_message": "د راکړې ورکړې جزئیات کاپي شول",
+            "secure": "خوندي راکړه ورکړه",
+            "secure_desc": "د AES-256 سره کوډ شوی"
+        },
+        "status": {
+            "success": "بریالی",
+            "pending": "په تمه",
+            "failed": "ناکامه"
+        }
+    },
+    "profile": {
+        "title": "پروفایل",
+        "privacy_mode": "محرم حالت",
+        "stats_widget": {
+            "title": "مالي جریان",
+            "weekly": "هاونۍ",
+            "monthly": "میاشتنی",
+            "six_months": "شپږ میاشتنی",
+            "currency": "افغانی",
+            "filters": {
+                "1W": "۱ اونۍ",
+                "1M": "۱ میاشت",
+                "6M": "۶ میاشتې"
+            }
+        },
+        "hub": {
+            "user_status": "د کارونکي حالت",
+            "level_benefits": "کچه او ګټې",
+            "groups": {
+                "security": "خوندیتوب او لاسرسی",
+                "general": "عمومي تنظیمات"
+            },
+            "items": {
+                "password": "رمز بدلول",
+                "auth_2fa": "دوه مرحلې تایید",
+                "devices": "وصل شوي وسیلې",
+                "language": "ژبه",
+                "appearance": "بڼه",
+                "notifications": "خبرتیاوې"
+            },
+            "status": {
+                "active": "فعال"
+            },
+            "desc": {
+                "password": "وروستی بدلون: ۲ میاشتې مخکې",
+                "auth_2fa": "فعال",
+                "devices": "وسیلې اداره کړئ",
+                "language": "پښتو",
+                "appearance": "تیاره حالت",
+                "notifications": "پیغامونه اداره کړئ"
+            }
+        },
+        "edit": "پروفایل سمول",
+        "edit_modal": {
+            "title": "پروفایل سمول",
+            "tap_to_change": "د عکس بدلولو لپاره ټچ کړئ",
+            "display_name": "نندارتیا نوم",
+            "username": "کارن نوم (انګلیسي)",
+            "username_hint": "یوازې انګلیسي حروف، شمیرې او _ اجازه لري.",
+            "success": "پروفایل په بریالیتوب تازه شو"
+        }
+    },
+    "auth": {
+        "intro": {
+            "skip": "تیریدل",
+            "start": "پیل کړئ",
+            "continue": "دوام",
+            "slides": {
+                "1": {
+                    "title": "آني تادیات",
+                    "desc": "په یوه سترګې رپ کې پیسې ولیږئ او ترلاسه کړئ"
+                },
+                "2": {
+                    "title": "مسلکي خوندیتوب",
+                    "desc": "د نظامي کچې کوډ کولو سره څو پوړیزه ساتنه"
+                },
+                "3": {
+                    "title": "نړیوال لاسرسی",
+                    "desc": "هرچیرته چې یاست، ستاسو حساب له تاسو سره دی"
+                }
+            }
+        },
+        "phone": {
+            "label": "د موبایل شمیره",
+            "placeholder": "07xx xxx xxx",
+            "subtitle": "خپله تلیفون شمیره دننه کړئ",
+            "secure": "ستاسو معلومات د AES-256 کوډ کولو سره ساتل کیږي",
+            "submit": "د تایید کوډ ترلاسه کول"
+        },
+        "otp": {
+            "title": "د تایید کوډ",
+            "title_verify": "شمیره تایید",
+            "subtitle": "{{phone}} ته استول شوی کوډ دننه کړئ",
+            "submit": "کوډ تایید کړئ",
+            "login": "حساب ته ننوتل",
+            "error": "داخل شوی کوډ سم نه دی",
+            "error_demo": "داخل شوی کوډ سم نه دی (د آزمایشي کوډ: 88888)",
+            "resend": "کوډ بیا واستوئ",
+            "verified": "تایید شو!",
+            "resend_in": "د {{seconds}} ثانیو وروسته بیا ولیږل کېږي"
+        },
+        "password": {
+            "title": "دوه مرحلې تایید",
+            "label": "خپل دوهم رمز دننه کړئ",
+            "placeholder": "••••••••",
+            "forgot": "رمز مو هیر کړی؟",
+            "submit": "حساب ته ننوتل",
+            "strength": {
+                "weak": "ضعیف",
+                "medium": "منځنی",
+                "strong": "قوي"
+            },
+            "biometric_hint": "د ګوتې نښو سره ننوتنه ژر راځي"
+        }
+    },
+    "notifications": {
+        "title": "خبرتیاوې",
+        "mark_all_read": "ټول لوستل شوي",
+        "filter": {
+            "all": "ټول",
+            "unread": "نا لوستل شوي"
+        },
+        "empty": "نوې خبرتیا نشته",
+        "types": {
+            "transaction": "راکړه ورکړه",
+            "security": "خوندیتوب",
+            "reward": "جایزه",
+            "promo": "تبلیغات",
+            "system": "سیسټم"
+        }
+    },
+    "contacts": {
+        "title": "اړیکې",
+        "search": "نوم، شمیره یا PBank ID ولټوئ...",
+        "favorites": "خوښې",
+        "all": "ټولې اړیکې",
+        "add": "نوې اړیکه اضافه کړئ",
+        "add_name": "نوم",
+        "add_phone": "تلیفون شمیره",
+        "add_submit": "اړیکه اضافه کړئ",
+        "empty": "هیڅ اړیکه ونه موندل شوه",
+        "last_tx": "وروستۍ راکړه ورکړه",
+        "send_money": "پیسې لیږل",
+        "edit": "سمول",
+        "copy_phone": "شمیره کاپي کول",
+        "remove_fav": "له خوښو لرې کول",
+        "add_fav": "خوښو ته اضافه کول"
+    },
+    "settings": {
+        "title": "تنظیمات",
+        "security": "خوندیتوب",
+        "appearance": "بڼه",
+        "general": "عمومي",
+        "danger_zone": "خطرناکه ساحه",
+        "change_password": "رمز بدلول",
+        "current_password": "اوسنی رمز",
+        "new_password": "نوی رمز",
+        "confirm_password": "د نوي رمز تکرار",
+        "password_changed": "رمز په بریالیتوب بدل شو",
+        "biometric": "بایومیتریک ننوتنه",
+        "biometric_desc": "ګوتې نښه / مخ پیژندنه",
+        "secure_keyboard": "خوندي کیبورډ",
+        "secure_keyboard_desc": "د کیلاګینګ مخنیوی",
+        "theme": "د نندارې حالت",
+        "theme_dark": "تیاره",
+        "theme_light": "رڼا",
+        "language": "ژبه",
+        "notifications_label": "خبرتیاوې",
+        "notifications_on": "فعال",
+        "notifications_off": "غیرفعال",
+        "devices": "وصل شوي وسیلې",
+        "devices_desc": "ناستو اداره کول",
+        "rate": "PBank ته امتیاز ورکړئ",
+        "rate_desc": "ستاسو نظر ارزښتناک دی",
+        "help": "د مرستې مرکز",
+        "help_desc": "مکرر پوښتنې",
+        "about": "د PBank په اړه",
+        "about_desc": "نسخه او معلومات",
+        "logout": "له حساب وتل",
+        "delete_account": "حساب بشپړ حذف",
+        "delete_account_desc": "بیرته نه راتلونکی",
+        "delete_confirm_title": "حساب حذف کول",
+        "delete_confirm_body": "ستاسو ټول معلومات، راکړې ورکړې او شتمني به د تل لپاره حذف شي. دا عمل بیرته نه راتلونکی دی.",
+        "terms": "د کارونې شرایط",
+        "privacy_policy": "د محرمیت پالیسي",
+        "licenses": "خلاصې سرچینې جوازونه"
+    },
+    "qr_scanner": {
+        "title": "QR کوډ سکین",
+        "instruction": "QR کوډ په چوکاټ کې کیږدئ",
+        "auto_scan": "اتومات سکین فعال دی",
+        "identified": "وپیژندل شو!",
+        "pbank_address": "PBank پته",
+        "rescan": "بیا سکین",
+        "send_money": "پیسې لیږل"
+    },
+    "rewards": {
+        "title": "جایزې او امتیازات",
+        "level": "کچه",
+        "xp": "تجربې امتیاز",
+        "streak": "ورځنۍ لړۍ",
+        "mystery_box": "رمزي بکسه",
+        "open": "خلاصول",
+        "badges": "نښانونه",
+        "privileges": "ځانګړي امتیازات",
+        "overview": "عمومي لید"
+    },
+    "services": {
+        "title": "خدمتونه",
+        "featured": "ځانګړي",
+        "all": "ټول خدمتونه",
+        "mobile_credit": "موبایل شارژ",
+        "electricity": "د بریښنا بل",
+        "internet": "انټرنیټ",
+        "flights": "الوتنه",
+        "taxes": "مالیه",
+        "others": "نور"
+    },
+    "receipt": {
+        "title": "د راکړې ورکړې رسید",
+        "success": "راکړه ورکړه بریالۍ",
+        "total_amount": "ټول مقدار",
+        "recipient": "ترلاسه کونکی",
+        "tracking": "د تعقیب شمیره",
+        "message": "پیغام",
+        "fee": "فیس",
+        "go_home": "کور ته ستنیدل",
+        "share": "شریکول",
+        "download": "ثبت کول"
+    },
+    "accessibility": {
+        "back_button": "شاته",
+        "close_button": "تړل",
+        "search_button": "لټون",
+        "menu_button": "مینو",
+        "loading": "د پورته کیدو په حال کې",
+        "notifications_badge": "{{count}} نا لوستل شوې خبرتیاوې",
+        "balance_hidden": "شتمني پټ شوې",
+        "toggle_on": "فعال",
+        "toggle_off": "غیرفعال"
+    }
+}

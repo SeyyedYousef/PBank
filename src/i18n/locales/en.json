@@ -1,0 +1,404 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "back": "Back",
+        "cancel": "Cancel",
+        "save": "Save",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "share": "Share",
+        "submit": "Continue",
+        "start": "Get Started",
+        "next": "Next",
+        "explore": "Start Exploring",
+        "edit": "Edit",
+        "delete": "Delete",
+        "confirm": "Confirm",
+        "unknown": "Unknown",
+        "search": "Search",
+        "close": "Close",
+        "retry": "Retry",
+        "send": "Send",
+        "receive": "Receive",
+        "free": "Free",
+        "no_data": "No data found",
+        "version": "Version",
+        "success": "Operation successful",
+        "error": "Error",
+        "offline": "Internet connection lost",
+        "online": "Connection restored"
+    },
+    "validation": {
+        "required": "This field is required",
+        "min_length": "Must be at least {{min}} characters",
+        "max_length": "Must be at most {{max}} characters",
+        "invalid_email": "Invalid email address",
+        "invalid_username": "Invalid username format",
+        "invalid_phone": "Invalid phone number",
+        "passwords_mismatch": "Passwords do not match",
+        "image_size": "Image size too large (max 5MB)",
+        "generic_error": "An error occurred during validation"
+    },
+    "nav": {
+        "home": "Home",
+        "history": "History",
+        "services": "Services",
+        "profile": "Profile"
+    },
+    "home": {
+        "welcome": "Welcome",
+        "balance": "Total Balance",
+        "hide_balance": "Hide balance",
+        "show_balance": "Show balance",
+        "actions": {
+            "transfer": "Transfer",
+            "receive": "Receive",
+            "history": "History",
+            "scan": "Scan",
+            "more": "More"
+        },
+        "quick_services": "Quick Services",
+        "recent_transactions": "Recent Transactions",
+        "view_all": "View All",
+        "promo_banner": "Special mobile credit offer",
+        "greeting": {
+            "morning": "Good Morning",
+            "afternoon": "Good Afternoon",
+            "evening": "Good Evening",
+            "night": "Good Night"
+        },
+        "guest_user": "Guest User",
+        "send": "Send",
+        "receive_btn": "Receive",
+        "quick_access": "Quick Access",
+        "all_services": "All Services",
+        "this_month": "This Month",
+        "no_transactions": "No transactions yet",
+        "all": "All",
+        "promo_title": "20% off Mobile Credit",
+        "promo_subtitle": "For new users • Until end of today",
+        "services": {
+            "charge": "Top-up",
+            "electricity": "Electric",
+            "flight": "Flight",
+            "tax": "Taxes"
+        }
+    },
+    "transfer": {
+        "title": "Send Money",
+        "network": "P-Chain Network",
+        "tabs": {
+            "address": "Wallet Address",
+            "qr": "Scan QR",
+            "radar": "Nearby Radar"
+        },
+        "amount": {
+            "label": "Enter amount to transfer",
+            "placeholder": "0",
+            "currency": "AFN"
+        },
+        "secure_keyboard": "Secure Keyboard Active",
+        "destination": {
+            "label": "Recipient Address",
+            "placeholder": "Recipient Wallet Address (0x...)"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Note, for... (Optional)"
+        },
+        "recent_contacts": "Recent Contacts",
+        "confirm_title": "Confirm Transfer",
+        "confirm_desc": "Are you sure you want to send {{amount}} AFN?",
+        "qr": {
+            "instruction": "Point camera at QR Code",
+            "back": "Back to Manual"
+        },
+        "submit": "Confirm & Transfer",
+        "success": "Transaction successful!",
+        "fee": "Fee"
+    },
+    "receive": {
+        "title": "Receive Money",
+        "qr_label": "Your QR Code",
+        "pbank_id": "PBank ID",
+        "request_amount": "Request specific amount",
+        "share": "Share code",
+        "copied": "ID copied!"
+    },
+    "history": {
+        "title": "History",
+        "search_placeholder": "Search transactions...",
+        "filter": {
+            "all": "All",
+            "send": "Sent",
+            "receive": "Received",
+            "deposit": "Deposit"
+        },
+        "summary": {
+            "total_sent": "Total Sent",
+            "total_received": "Total Received",
+            "count": "Transaction Count"
+        },
+        "empty": "No items found",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "this_week": "This Week",
+        "older": "Older",
+        "details": {
+            "title": "Transaction Details",
+            "counterparty": "Counterparty",
+            "amount": "Amount",
+            "date": "Date",
+            "time": "Time",
+            "fee": "Fee",
+            "note": "Note",
+            "message": "Message",
+            "status": "Status",
+            "success_receive": "Received Successfully",
+            "success_send": "Sent Successfully",
+            "tracking_code": "Tracking Code",
+            "tracking_copied": "Tracking code copied",
+            "share": "Share Receipt",
+            "repeat": "Repeat Transaction",
+            "copy_message": "Transaction details copied",
+            "secure": "Secure Transaction",
+            "secure_desc": "Encrypted with AES-256"
+        },
+        "status": {
+            "success": "Successful",
+            "pending": "Pending",
+            "failed": "Failed"
+        }
+    },
+    "profile": {
+        "title": "Profile",
+        "privacy_mode": "Privacy Mode",
+        "stats_widget": {
+            "title": "Turnover",
+            "weekly": "Weekly",
+            "monthly": "Monthly",
+            "six_months": "6 Months",
+            "currency": "AFN",
+            "filters": {
+                "1W": "1W",
+                "1M": "1M",
+                "6M": "6M"
+            }
+        },
+        "hub": {
+            "user_status": "User Status",
+            "level_benefits": "Level & Benefits",
+            "groups": {
+                "security": "Security & Access",
+                "general": "General Settings"
+            },
+            "items": {
+                "password": "Change Password",
+                "auth_2fa": "Two-Factor Auth",
+                "devices": "Connected Devices",
+                "language": "Language",
+                "appearance": "Appearance",
+                "notifications": "Notifications"
+            },
+            "status": {
+                "active": "Active"
+            },
+            "desc": {
+                "password": "Last changed: 2 months ago",
+                "auth_2fa": "Active",
+                "devices": "Manage Devices",
+                "language": "English",
+                "appearance": "Dark Mode",
+                "notifications": "Manage Messages"
+            }
+        },
+        "edit": "Edit Profile",
+        "edit_modal": {
+            "title": "Edit Profile",
+            "tap_to_change": "Tap to change photo",
+            "display_name": "Display Name",
+            "username": "Username (English)",
+            "username_hint": "Only English letters, numbers, and _ are allowed.",
+            "success": "Profile updated successfully"
+        }
+    },
+    "auth": {
+        "intro": {
+            "skip": "Skip",
+            "start": "Get Started",
+            "continue": "Continue",
+            "slides": {
+                "1": {
+                    "title": "Instant Payments",
+                    "desc": "Send and receive money in a fraction of a second"
+                },
+                "2": {
+                    "title": "Pro Security",
+                    "desc": "Multi-layer protection with military-grade encryption"
+                },
+                "3": {
+                    "title": "Global Access",
+                    "desc": "Wherever you are, your account is with you"
+                }
+            }
+        },
+        "phone": {
+            "label": "Phone Number",
+            "placeholder": "07xx xxx xxx",
+            "subtitle": "Enter your phone number",
+            "secure": "Your data is protected with AES-256 encryption",
+            "submit": "Get Verification Code"
+        },
+        "otp": {
+            "title": "Verification Code",
+            "title_verify": "Verify Number",
+            "subtitle": "Enter the code sent to {{phone}}",
+            "submit": "Verify Code",
+            "login": "Login",
+            "error": "Invalid code entered",
+            "error_demo": "Invalid code (test code: 88888)",
+            "resend": "Resend Code",
+            "verified": "Verified!",
+            "resend_in": "Resend after {{seconds}} seconds"
+        },
+        "password": {
+            "title": "Two-Factor Authentication",
+            "label": "Enter your second password",
+            "placeholder": "••••••••",
+            "forgot": "Forgot password?",
+            "submit": "Login",
+            "strength": {
+                "weak": "Weak",
+                "medium": "Medium",
+                "strong": "Strong"
+            },
+            "biometric_hint": "Biometric login coming soon"
+        }
+    },
+    "notifications": {
+        "title": "Notifications",
+        "mark_all_read": "Mark all as read",
+        "filter": {
+            "all": "All",
+            "unread": "Unread"
+        },
+        "empty": "No new notifications",
+        "types": {
+            "transaction": "Transaction",
+            "security": "Security",
+            "reward": "Reward",
+            "promo": "Promotion",
+            "system": "System"
+        }
+    },
+    "contacts": {
+        "title": "Contacts",
+        "search": "Search name, number or PBank ID...",
+        "favorites": "Favorites",
+        "all": "All Contacts",
+        "add": "Add New Contact",
+        "add_name": "Name",
+        "add_phone": "Phone Number",
+        "add_submit": "Add Contact",
+        "empty": "No contacts found",
+        "last_tx": "Last transaction",
+        "send_money": "Send Money",
+        "edit": "Edit",
+        "copy_phone": "Copy Number",
+        "remove_fav": "Remove from favorites",
+        "add_fav": "Add to favorites"
+    },
+    "settings": {
+        "title": "Settings",
+        "security": "Security",
+        "appearance": "Appearance",
+        "general": "General",
+        "danger_zone": "Danger Zone",
+        "change_password": "Change Password",
+        "current_password": "Current Password",
+        "new_password": "New Password",
+        "confirm_password": "Confirm New Password",
+        "password_changed": "Password changed successfully",
+        "biometric": "Biometric Login",
+        "biometric_desc": "Fingerprint / Face ID",
+        "secure_keyboard": "Secure Keyboard",
+        "secure_keyboard_desc": "Prevent keylogging",
+        "theme": "Display Mode",
+        "theme_dark": "Dark",
+        "theme_light": "Light",
+        "language": "Language",
+        "notifications_label": "Notifications",
+        "notifications_on": "Enabled",
+        "notifications_off": "Disabled",
+        "devices": "Connected Devices",
+        "devices_desc": "Manage sessions",
+        "rate": "Rate PBank",
+        "rate_desc": "Your feedback matters",
+        "help": "Help Center",
+        "help_desc": "FAQ",
+        "about": "About PBank",
+        "about_desc": "Version & Info",
+        "logout": "Logout",
+        "delete_account": "Delete Account",
+        "delete_account_desc": "Irreversible",
+        "delete_confirm_title": "Delete Account",
+        "delete_confirm_body": "All your data, transactions, and balance will be permanently deleted. This action is irreversible.",
+        "terms": "Terms of Service",
+        "privacy_policy": "Privacy Policy",
+        "licenses": "Open Source Licenses"
+    },
+    "qr_scanner": {
+        "title": "Scan QR Code",
+        "instruction": "Place QR Code in the frame",
+        "auto_scan": "Auto-scan enabled",
+        "identified": "Identified!",
+        "pbank_address": "PBank Address",
+        "rescan": "Scan Again",
+        "send_money": "Send Money"
+    },
+    "rewards": {
+        "title": "Rewards & Points",
+        "level": "Level",
+        "xp": "Experience Points",
+        "streak": "Daily Streak",
+        "mystery_box": "Mystery Box",
+        "open": "Open",
+        "badges": "Badges",
+        "privileges": "Privileges",
+        "overview": "Overview"
+    },
+    "services": {
+        "title": "Services",
+        "featured": "Featured",
+        "all": "All Services",
+        "mobile_credit": "Mobile Top-up",
+        "electricity": "Electricity",
+        "internet": "Internet",
+        "flights": "Flights",
+        "taxes": "Taxes",
+        "others": "Others"
+    },
+    "receipt": {
+        "title": "Transaction Receipt",
+        "success": "Transaction Successful",
+        "total_amount": "Total Amount",
+        "recipient": "Recipient",
+        "tracking": "Tracking Number",
+        "message": "Message",
+        "fee": "Fee",
+        "go_home": "Go Home",
+        "share": "Share",
+        "download": "Save"
+    },
+    "accessibility": {
+        "back_button": "Back",
+        "close_button": "Close",
+        "search_button": "Search",
+        "menu_button": "Menu",
+        "loading": "Loading",
+        "notifications_badge": "{{count}} unread notifications",
+        "balance_hidden": "Balance hidden",
+        "toggle_on": "Enabled",
+        "toggle_off": "Disabled"
+    }
+}

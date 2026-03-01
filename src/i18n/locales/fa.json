@@ -1,0 +1,404 @@
+{
+    "common": {
+        "loading": "در حال بارگذاری...",
+        "back": "بازگشت",
+        "cancel": "لغو",
+        "save": "ذخیره",
+        "copy": "کپی",
+        "copied": "کپی شد!",
+        "share": "اشتراک‌گذاری",
+        "submit": "ادامه",
+        "start": "شروع کنید",
+        "next": "بعدی",
+        "explore": "شروع کاوش",
+        "edit": "ویرایش",
+        "delete": "حذف",
+        "confirm": "تایید",
+        "unknown": "ناشناس",
+        "search": "جستجو",
+        "close": "بستن",
+        "retry": "تلاش مجدد",
+        "send": "ارسال",
+        "receive": "دریافت",
+        "free": "رایگان",
+        "no_data": "داده‌ای یافت نشد",
+        "version": "نسخه",
+        "success": "عملیات موفق",
+        "error": "خطا",
+        "offline": "اتصال اینترنت قطع شده",
+        "online": "اتصال برقرار شد"
+    },
+    "validation": {
+        "required": "این فیلد الزامی است",
+        "min_length": "باید حداقل {{min}} کاراکتر باشد",
+        "max_length": "باید حداکثر {{max}} کاراکتر باشد",
+        "invalid_email": "آدرس ایمیل نامعتبر است",
+        "invalid_username": "فرمت نام کاربری نامعتبر است",
+        "invalid_phone": "شماره تلفن نامعتبر است",
+        "passwords_mismatch": "رمزهای عبور مطابقت ندارند",
+        "image_size": "حجم تصویر زیاد است (حداکثر ۵ مگابایت)",
+        "generic_error": "خطایی در اعتبارسنجی رخ داد"
+    },
+    "nav": {
+        "home": "خانه",
+        "history": "تاریخچه",
+        "services": "خدمات",
+        "profile": "پروفایل"
+    },
+    "home": {
+        "welcome": "خوش آمدی",
+        "balance": "موجودی کل",
+        "hide_balance": "مخفی کردن موجودی",
+        "show_balance": "نمایش موجودی",
+        "actions": {
+            "transfer": "انتقال",
+            "receive": "دریافت",
+            "history": "تاریخچه",
+            "scan": "اسکن",
+            "more": "بیشتر"
+        },
+        "quick_services": "خدمات سریع",
+        "recent_transactions": "تراکنش‌های اخیر",
+        "view_all": "مشاهده همه",
+        "promo_banner": "تخفیف ویژه شارژ موبایل",
+        "greeting": {
+            "morning": "صبح بخیر",
+            "afternoon": "ظهر بخیر",
+            "evening": "عصر بخیر",
+            "night": "شب بخیر"
+        },
+        "guest_user": "کاربر مهمان",
+        "send": "ارسال",
+        "receive_btn": "دریافت",
+        "quick_access": "دسترسی سریع",
+        "all_services": "همه خدمات",
+        "this_month": "این ماه",
+        "no_transactions": "هنوز تراکنشی ندارید",
+        "all": "همه",
+        "promo_title": "۲۰٪ تخفیف شارژ موبایل",
+        "promo_subtitle": "ویژه کاربران جدید • تا پایان امروز",
+        "services": {
+            "charge": "شارژ",
+            "electricity": "برق",
+            "flight": "پرواز",
+            "tax": "مالیات"
+        }
+    },
+    "transfer": {
+        "title": "ارسال پول",
+        "network": "شبکه P-Chain",
+        "tabs": {
+            "address": "آدرس ولت",
+            "qr": "اسکن QR",
+            "radar": "رادار نزدیک"
+        },
+        "amount": {
+            "label": "مبلغ انتقال را وارد کنید",
+            "placeholder": "۰",
+            "currency": "افغانی"
+        },
+        "secure_keyboard": "کیبورد امن فعال است",
+        "destination": {
+            "label": "آدرس گیرنده",
+            "placeholder": "آدرس کیف پول گیرنده (0x...)"
+        },
+        "message": {
+            "label": "پیام",
+            "placeholder": "یادداشت، بابت... (اختیاری)"
+        },
+        "recent_contacts": "آدرس‌های اخیر",
+        "confirm_title": "تایید انتقال",
+        "confirm_desc": "آیا از ارسال {{amount}} ؋ مطمئن هستید؟",
+        "qr": {
+            "instruction": "دوربین را روی QR Code بگیرید",
+            "back": "بازگشت به دستی"
+        },
+        "submit": "تایید و انتقال",
+        "success": "تراکنش موفق بود!",
+        "fee": "کارمزد"
+    },
+    "receive": {
+        "title": "دریافت پول",
+        "qr_label": "QR Code شما",
+        "pbank_id": "شناسه PBank",
+        "request_amount": "درخواست مبلغ مشخص",
+        "share": "اشتراک‌گذاری کد",
+        "copied": "شناسه کپی شد!"
+    },
+    "history": {
+        "title": "تاریخچه",
+        "search_placeholder": "جستجو در تراکنش‌ها...",
+        "filter": {
+            "all": "همه",
+            "send": "ارسال",
+            "receive": "دریافت",
+            "deposit": "واریز"
+        },
+        "summary": {
+            "total_sent": "کل ارسالی",
+            "total_received": "کل دریافتی",
+            "count": "تعداد تراکنش"
+        },
+        "empty": "موردی یافت نشد",
+        "today": "امروز",
+        "yesterday": "دیروز",
+        "this_week": "این هفته",
+        "older": "قبل‌تر",
+        "details": {
+            "title": "جزئیات تراکنش",
+            "counterparty": "طرف حساب",
+            "amount": "مبلغ",
+            "date": "تاریخ",
+            "time": "ساعت",
+            "fee": "کارمزد",
+            "note": "توضیحات",
+            "message": "پیام",
+            "status": "وضعیت",
+            "success_receive": "دریافت موفق",
+            "success_send": "ارسال موفق",
+            "tracking_code": "کد پیگیری",
+            "tracking_copied": "کد پیگیری کپی شد",
+            "share": "اشتراک رسید",
+            "repeat": "تکرار تراکنش",
+            "copy_message": "جزئیات تراکنش کپی شد",
+            "secure": "تراکنش امن",
+            "secure_desc": "رمزنگاری شده با AES-256"
+        },
+        "status": {
+            "success": "موفق",
+            "pending": "در انتظار",
+            "failed": "ناموفق"
+        }
+    },
+    "profile": {
+        "title": "پروفایل",
+        "privacy_mode": "حالت خصوصی",
+        "stats_widget": {
+            "title": "گردش مالی",
+            "weekly": "هفتگی",
+            "monthly": "ماهانه",
+            "six_months": "شش ماهه",
+            "currency": "افغانی",
+            "filters": {
+                "1W": "۱ هفته",
+                "1M": "۱ ماه",
+                "6M": "۶ ماه"
+            }
+        },
+        "hub": {
+            "user_status": "وضعیت کاربری",
+            "level_benefits": "سطح و مزایا",
+            "groups": {
+                "security": "امنیت و دسترسی",
+                "general": "تنظیمات عمومی"
+            },
+            "items": {
+                "password": "تغییر رمز عبور",
+                "auth_2fa": "احراز هویت دو مرحله‌ای",
+                "devices": "دستگاه‌های متصل",
+                "language": "زبان",
+                "appearance": "ظاهر برنامه",
+                "notifications": "اعلان‌ها"
+            },
+            "status": {
+                "active": "فعال"
+            },
+            "desc": {
+                "password": "آخرین تغییر: ۲ ماه پیش",
+                "auth_2fa": "فعال",
+                "devices": "مدیریت دستگاه‌ها",
+                "language": "فارسی",
+                "appearance": "حالت تاریک",
+                "notifications": "مدیریت پیام‌ها"
+            }
+        },
+        "edit": "ویرایش پروفایل",
+        "edit_modal": {
+            "title": "ویرایش پروفایل",
+            "tap_to_change": "برای تغییر تصویر ضربه بزنید",
+            "display_name": "نام نمایشی",
+            "username": "نام کاربری (انگلیسی)",
+            "username_hint": "فقط حروف انگلیسی، اعداد و _ مجاز است.",
+            "success": "پروفایل با موفقیت بروز شد"
+        }
+    },
+    "auth": {
+        "intro": {
+            "skip": "رد شدن",
+            "start": "شروع استفاده",
+            "continue": "ادامه",
+            "slides": {
+                "1": {
+                    "title": "پرداخت آنی",
+                    "desc": "ارسال و دریافت پول در کسری از ثانیه"
+                },
+                "2": {
+                    "title": "امنیت حرفه‌ای",
+                    "desc": "حفاظت چند‌لایه با رمزنگاری نظامی"
+                },
+                "3": {
+                    "title": "دسترسی جهانی",
+                    "desc": "هرجای دنیا باشید، حساب شما همراهتان است"
+                }
+            }
+        },
+        "phone": {
+            "label": "شماره موبایل",
+            "placeholder": "07xx xxx xxx",
+            "subtitle": "شماره تلفن خود را وارد کنید",
+            "secure": "اطلاعات شما با رمزنگاری AES-256 محافظت می‌شود",
+            "submit": "دریافت کد تایید"
+        },
+        "otp": {
+            "title": "کد تایید",
+            "title_verify": "تایید شماره",
+            "subtitle": "کد ارسال شده به {{phone}} را وارد کنید",
+            "submit": "تایید کد",
+            "login": "ورود به حساب",
+            "error": "کد وارد شده صحیح نیست",
+            "error_demo": "کد وارد شده صحیح نیست (کد آزمایشی: 88888)",
+            "resend": "ارسال مجدد کد",
+            "verified": "تایید شد!",
+            "resend_in": "ارسال مجدد بعد از {{seconds}} ثانیه"
+        },
+        "password": {
+            "title": "تایید هویت دو مرحله‌ای",
+            "label": "رمز عبور دوم خود را وارد کنید",
+            "placeholder": "••••••••",
+            "forgot": "رمز عبور را فراموش کردم",
+            "submit": "ورود به حساب",
+            "strength": {
+                "weak": "ضعیف",
+                "medium": "متوسط",
+                "strong": "قوی"
+            },
+            "biometric_hint": "ورود با اثر انگشت در آینده"
+        }
+    },
+    "notifications": {
+        "title": "اعلان‌ها",
+        "mark_all_read": "خواندن همه",
+        "filter": {
+            "all": "همه",
+            "unread": "خوانده نشده"
+        },
+        "empty": "اعلان جدیدی وجود ندارد",
+        "types": {
+            "transaction": "تراکنش",
+            "security": "امنیت",
+            "reward": "جایزه",
+            "promo": "تبلیغات",
+            "system": "سیستم"
+        }
+    },
+    "contacts": {
+        "title": "مخاطبین",
+        "search": "جستجوی نام، شماره یا PBank ID...",
+        "favorites": "علاقه‌مندی‌ها",
+        "all": "همه مخاطبین",
+        "add": "افزودن مخاطب جدید",
+        "add_name": "نام",
+        "add_phone": "شماره تلفن",
+        "add_submit": "افزودن مخاطب",
+        "empty": "مخاطبی یافت نشد",
+        "last_tx": "آخرین تراکنش",
+        "send_money": "ارسال پول",
+        "edit": "ویرایش",
+        "copy_phone": "کپی شماره",
+        "remove_fav": "حذف از علاقه‌مندی‌ها",
+        "add_fav": "افزودن به علاقه‌مندی‌ها"
+    },
+    "settings": {
+        "title": "تنظیمات",
+        "security": "امنیت",
+        "appearance": "نمایش",
+        "general": "عمومی",
+        "danger_zone": "ناحیه خطر",
+        "change_password": "تغییر رمز عبور",
+        "current_password": "رمز عبور فعلی",
+        "new_password": "رمز عبور جدید",
+        "confirm_password": "تکرار رمز عبور جدید",
+        "password_changed": "رمز عبور با موفقیت تغییر یافت",
+        "biometric": "ورود بیومتریک",
+        "biometric_desc": "اثر انگشت / تشخیص چهره",
+        "secure_keyboard": "کیبورد امن",
+        "secure_keyboard_desc": "جلوگیری از ضبط صفحه‌کلید",
+        "theme": "حالت نمایش",
+        "theme_dark": "تاریک",
+        "theme_light": "روشن",
+        "language": "زبان",
+        "notifications_label": "اعلان‌ها",
+        "notifications_on": "فعال",
+        "notifications_off": "غیرفعال",
+        "devices": "دستگاه‌های متصل",
+        "devices_desc": "مدیریت نشست‌ها",
+        "rate": "امتیاز به PBank",
+        "rate_desc": "نظر شما ارزشمند است",
+        "help": "مرکز راهنما",
+        "help_desc": "سوالات متداول",
+        "about": "درباره PBank",
+        "about_desc": "نسخه و اطلاعات",
+        "logout": "خروج از حساب",
+        "delete_account": "حذف کامل حساب",
+        "delete_account_desc": "غیرقابل بازگشت",
+        "delete_confirm_title": "حذف حساب کاربری",
+        "delete_confirm_body": "تمام اطلاعات، تراکنش‌ها و موجودی شما برای همیشه حذف خواهد شد. این عمل غیرقابل بازگشت است.",
+        "terms": "شرایط استفاده",
+        "privacy_policy": "سیاست حفظ حریم خصوصی",
+        "licenses": "مجوزهای متن باز"
+    },
+    "qr_scanner": {
+        "title": "اسکن QR Code",
+        "instruction": "QR Code را در کادر قرار دهید",
+        "auto_scan": "اسکن خودکار فعال است",
+        "identified": "شناسایی شد!",
+        "pbank_address": "آدرس PBank",
+        "rescan": "اسکن مجدد",
+        "send_money": "ارسال پول"
+    },
+    "rewards": {
+        "title": "جوایز و امتیازها",
+        "level": "سطح",
+        "xp": "امتیاز تجربه",
+        "streak": "روزهای متوالی",
+        "mystery_box": "جعبه رمز",
+        "open": "باز کردن",
+        "badges": "نشان‌ها",
+        "privileges": "امتیازات ویژه",
+        "overview": "نمای کلی"
+    },
+    "services": {
+        "title": "خدمات",
+        "featured": "خدمات ویژه",
+        "all": "همه خدمات",
+        "mobile_credit": "شارژ موبایل",
+        "electricity": "قبض برق",
+        "internet": "اینترنت",
+        "flights": "پرواز",
+        "taxes": "مالیات",
+        "others": "سایر"
+    },
+    "receipt": {
+        "title": "رسید تراکنش",
+        "success": "تراکنش موفق",
+        "total_amount": "مبلغ کل",
+        "recipient": "دریافت‌کننده",
+        "tracking": "شماره پیگیری",
+        "message": "پیام",
+        "fee": "کارمزد",
+        "go_home": "بازگشت به خانه",
+        "share": "اشتراک",
+        "download": "ذخیره"
+    },
+    "accessibility": {
+        "back_button": "بازگشت",
+        "close_button": "بستن",
+        "search_button": "جستجو",
+        "menu_button": "منو",
+        "loading": "در حال بارگذاری",
+        "notifications_badge": "{{count}} اعلان خوانده نشده",
+        "balance_hidden": "موجودی مخفی شده",
+        "toggle_on": "فعال",
+        "toggle_off": "غیرفعال"
+    }
+}
