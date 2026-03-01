@@ -5,6 +5,7 @@ import { BentoCard } from '@/shared/ui/BentoCard';
 import { Button } from '@/shared/ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { SuccessAnimation } from '@/shared/ui/SuccessAnimation';
 
 export const ReceiptPage = () => {
     const { t } = useTranslation();
@@ -18,6 +19,8 @@ export const ReceiptPage = () => {
         date = new Date().toLocaleDateString('fa-IR'),
         time = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' })
     } = location.state || {};
+
+    const [showAnimation, setShowAnimation] = useState(true);
 
     const trackingCode = `PB-${Date.now().toString(36).toUpperCase().slice(-6)}`;
 
@@ -42,13 +45,20 @@ export const ReceiptPage = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="p-6 min-h-screen flex flex-col justify-between pb-10"
         >
+            <SuccessAnimation
+                show={showAnimation}
+                onComplete={() => setShowAnimation(false)}
+                title={t('receipt.success')}
+                subtitle={`${amount.toLocaleString()} ؋`}
+            />
+
             <div className="flex-1 flex flex-col items-center justify-center space-y-8">
                 {/* Success Animation Container */}
                 <div className="relative">
                     <motion.div
                         animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
                         transition={{ duration: 3, repeat: Infinity }}
-                        className="absolute inset-0 bg-success/20 blur-[80px] rounded-full"
+                        className="absolute inset-0 bg-emerald-500/20 blur-[80px] rounded-full"
                     />
                     <motion.div
                         initial={{ scale: 0 }}

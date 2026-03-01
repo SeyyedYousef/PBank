@@ -1,8 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import { useWalletStore, Transaction } from '@/store/walletStore';
 import { usePrivacy } from '@/shared/context/PrivacyContext';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { SkeletonPage } from '@/shared/ui/Skeleton';
 import {
     ArrowUpRight, ArrowDownLeft, Download as DepositIcon,
     Search, Calendar, X
@@ -11,17 +14,25 @@ import {
 type FilterType = 'all' | 'send' | 'receive' | 'deposit';
 
 export const HistoryPage = () => {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
     const { transactions } = useWalletStore();
     const { isPrivacyMode } = usePrivacy();
     const [filter, setFilter] = useState<FilterType>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [showSearch, setShowSearch] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 800);
+        return () => clearTimeout(timer);
+    }, []);
 
     const filters: { id: FilterType; label: string; color: string }[] = [
-        { id: 'all', label: 'همه', color: 'text-white' },
-        { id: 'send', label: 'ارسال', color: 'text-red-400' },
-        { id: 'receive', label: 'دریافت', color: 'text-emerald-400' },
-        { id: 'deposit', label: 'واریز', color: 'text-blue-400' },
+        { id: 'all', label: t('history.filters.all', 'همه'), color: 'text-white' },
+        { id: 'send', label: t('history.filters.send', 'ارسال'), color: 'text-red-400' },
+        { id: 'receive', label: t('history.filters.receive', 'دریافت'), color: 'text-emerald-400' },
+        { id: 'deposit', label: t('history.filters.deposit', 'واریز'), color: 'text-blue-400' },
     ];
 
     const filteredTx = useMemo(() => {
@@ -30,13 +41,13 @@ export const HistoryPage = () => {
         if (searchQuery.trim()) {
             const q = searchQuery.toLowerCase();
             result = result.filter(tx =>
-                tx.name.toLowerCase().includes(q) ||
-                tx.title.toLowerCase().includes(q) ||
+                t(`history.tx_names.${tx.name}`, tx.name).toLowerCase().includes(q) ||
+                t(`history.tx_titles.${tx.title}`, tx.title).toLowerCase().includes(q) ||
                 tx.tracking.includes(q)
             );
         }
         return result;
-    }, [transactions, filter, searchQuery]);
+    }, [transactions, filter, searchQuery, t]);
 
     // Group by date
     const grouped = useMemo(() => {
@@ -68,15 +79,15 @@ export const HistoryPage = () => {
     };
 
     // Summary stats
-    const totalSent = transactions.filter(t => t.type === 'send').reduce((s, t) => s + t.amount, 0);
-    const totalReceived = transactions.filter(t => t.type === 'receive' || t.type === 'deposit').reduce((s, t) => s + t.amount, 0);
+    const totalSent = transactions.filter(t => t.type === 'send').reduce((s, tx) => s + tx.amount, 0);
+    const totalReceived = transactions.filter(t => t.type === 'receive' || t.type === 'deposit').reduce((s, tx) => s + tx.amount, 0);
 
     return (
         <PageTransition className="pb-32">
             {/* Header */}
             <div className="sticky top-0 z-40 px-6 py-4 backdrop-blur-xl bg-black/30 border-b border-white/5">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-lg font-bold text-white">تاریخچه تراکنش‌ها</h1>
+                    <h1 className="text-lg font-bold text-white">{t('history.title')}</h1>
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => setShowSearch(!showSearch)}
@@ -98,13 +109,13 @@ export const HistoryPage = () => {
                         >
                             <div className="pt-3">
                                 <div className="relative">
-                                    <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                    <Search className="absolute end-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                     <input
                                         type="text"
-                                        placeholder="جستجو در تراکنش‌ها..."
+                                        placeholder={t('history.search', 'جستجو در تراکنش‌ها...')}
                                         value={searchQuery}
                                         onChange={e => setSearchQuery(e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pr-11 pl-4 text-sm text-white placeholder-gray-500 outline-none focus:border-primary/50 transition-colors"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pe-11 ps-4 text-sm text-white placeholder-gray-500 outline-none focus:border-primary/50 transition-colors text-start"
                                         autoFocus
                                     />
                                 </div>
@@ -122,11 +133,11 @@ export const HistoryPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="omega-glass rounded-2xl p-4"
                     >
-                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-2">ارسال شده</p>
-                        <p className="text-red-400 font-bold text-xl tabular-nums ltr-nums">
+                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-2">{t('history.sent', 'ارسال شده')}</p>
+                        <p className="text-red-400 font-bold text-xl tabular-nums ltr-nums text-start">
                             {isPrivacyMode ? '•••' : `-${totalSent.toLocaleString()}`}
                         </p>
-                        <p className="text-gray-600 text-[10px]">AFN</p>
+                        <p className="text-gray-600 text-[10px] text-start">AFN</p>
                     </motion.div>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -134,11 +145,11 @@ export const HistoryPage = () => {
                         transition={{ delay: 0.1 }}
                         className="omega-glass rounded-2xl p-4"
                     >
-                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-2">دریافت شده</p>
-                        <p className="text-emerald-400 font-bold text-xl tabular-nums ltr-nums">
+                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-2">{t('history.received', 'دریافت شده')}</p>
+                        <p className="text-emerald-400 font-bold text-xl tabular-nums ltr-nums text-start">
                             {isPrivacyMode ? '•••' : `+${totalReceived.toLocaleString()}`}
                         </p>
-                        <p className="text-gray-600 text-[10px]">AFN</p>
+                        <p className="text-gray-600 text-[10px] text-start">AFN</p>
                     </motion.div>
                 </div>
 
@@ -163,12 +174,14 @@ export const HistoryPage = () => {
 
                 {/* Transaction List */}
                 <div className="space-y-6">
-                    {grouped.length === 0 ? (
+                    {isLoading ? (
+                        <SkeletonPage />
+                    ) : grouped.length === 0 ? (
                         <div className="text-center py-16 space-y-3">
                             <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto">
                                 <Calendar className="w-7 h-7 text-gray-600" />
                             </div>
-                            <p className="text-gray-500 text-sm">تراکنشی یافت نشد</p>
+                            <p className="text-gray-500 text-sm">{t('history.empty', 'تراکنشی یافت نشد')}</p>
                         </div>
                     ) : (
                         grouped.map(([date, txs], gi) => (
@@ -178,7 +191,9 @@ export const HistoryPage = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: gi * 0.05 }}
                             >
-                                <p className="text-gray-500 text-[11px] font-bold uppercase tracking-wider mb-3 px-1">{date}</p>
+                                <p className="text-gray-500 text-[11px] font-bold uppercase tracking-wider mb-3 px-1 text-start">
+                                    {date === 'today' ? t('history.today', 'امروز') : date === 'yesterday' ? t('history.yesterday', 'دیروز') : date}
+                                </p>
                                 <div className="omega-glass rounded-[20px] overflow-hidden divide-y divide-white/5">
                                     {txs.map((tx, i) => (
                                         <motion.div
@@ -186,18 +201,19 @@ export const HistoryPage = () => {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: gi * 0.05 + i * 0.03 }}
+                                            onClick={() => navigate(`/transaction/${tx.id}`)}
                                             className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer group"
                                         >
                                             <div className="flex items-center gap-3">
                                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${getTxBg(tx.type)} group-hover:scale-105 transition-transform`}>
                                                     {getTxIcon(tx.type)}
                                                 </div>
-                                                <div className="min-w-0">
-                                                    <p className="text-white font-bold text-sm truncate">{tx.name}</p>
-                                                    <p className="text-gray-500 text-[11px] truncate">{tx.title} • {tx.time}</p>
+                                                <div className="min-w-0 text-start">
+                                                    <p className="text-white font-bold text-sm truncate">{t(`history.tx_names.${tx.name}`, tx.name)}</p>
+                                                    <p className="text-gray-500 text-[11px] truncate">{t(`history.tx_titles.${tx.title}`, tx.title)} • {tx.time}</p>
                                                 </div>
                                             </div>
-                                            <div className="text-left flex-shrink-0 mr-3">
+                                            <div className="flex-shrink-0 ms-3 text-end">
                                                 <p className={`font-bold text-sm tabular-nums ltr-nums ${tx.type === 'send' ? 'text-red-400' : 'text-emerald-400'
                                                     }`}>
                                                     {isPrivacyMode ? '•••' : `${tx.type === 'send' ? '-' : '+'}${tx.amount.toLocaleString()}`}

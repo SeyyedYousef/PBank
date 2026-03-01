@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import { useAuthStore } from '@/store/authStore';
@@ -7,42 +7,12 @@ import { usePrivacy } from '@/shared/context/PrivacyContext';
 import { useNavigate } from 'react-router-dom';
 import {
     Send, Download, Eye, EyeOff, Bell, ArrowUpRight, ArrowDownLeft,
-    Smartphone, Zap, Plane, CreditCard, Sparkles, TrendingUp, ChevronRight
+    Smartphone, Zap, Plane, CreditCard, Sparkles, TrendingUp, ChevronRight, PieChart
 } from 'lucide-react';
 import { SkeletonPage } from '@/shared/ui/Skeleton';
 import { useTranslation } from 'react-i18next';
 
-// Animated counter component
-const AnimatedBalance = ({ value, visible }: { value: number; visible: boolean }) => {
-    const [display, setDisplay] = useState(0);
-    const animRef = useRef<number>();
-
-    useEffect(() => {
-        if (!visible) return;
-        const duration = 1200;
-        const start = performance.now();
-        const from = display;
-
-        const animate = (now: number) => {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 4); // ease-out-quart
-            setDisplay(Math.round(from + (value - from) * eased));
-            if (progress < 1) animRef.current = requestAnimationFrame(animate);
-        };
-
-        animRef.current = requestAnimationFrame(animate);
-        return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
-    }, [value, visible]);
-
-    if (!visible) return <span className="text-4xl font-black tracking-tight">•••••</span>;
-
-    return (
-        <span className="text-4xl font-black tracking-tight tabular-nums ltr-nums">
-            {display.toLocaleString('fa-IR')}
-        </span>
-    );
-};
+import { AnimatedNumber } from '@/shared/ui/AnimatedNumber';
 
 export const HomePage = () => {
     const { t } = useTranslation();
@@ -132,17 +102,21 @@ export const HomePage = () => {
                                 {t('home.balance')}
                             </p>
                             <div className="flex items-baseline gap-2 mb-1">
-                                <AnimatedBalance value={balance} visible={!isPrivacyMode} />
+                                <AnimatedNumber value={balance} visible={!isPrivacyMode} className="text-4xl font-black tracking-tight" />
                                 <span className="text-gray-500 text-sm font-medium">AFN</span>
                             </div>
 
-                            <div className="flex items-center gap-2 mt-1">
+                            <button onClick={() => navigate('/analytics')} className="flex items-center gap-2 mt-1 hover:bg-white/5 px-2 py-1 rounded-lg transition-colors -ml-2 rtl:-mr-2">
                                 <span className="flex items-center gap-1 text-emerald-400 text-[11px] font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full">
                                     <TrendingUp className="w-3 h-3" />
                                     +۱۲.۵٪
                                 </span>
-                                <span className="text-gray-500 text-[10px]">{t('home.this_month')}</span>
-                            </div>
+                                <span className="flex items-center gap-1 text-gray-500 text-[10px] uppercase font-bold tracking-wider">
+                                    <PieChart className="w-3 h-3" />
+                                    {t('analytics.title', 'داشبورد مالی')}
+                                </span>
+                                <ChevronRight className="w-3 h-3 text-gray-600 rtl:rotate-180" />
+                            </button>
                         </div>
 
                         {/* Quick Actions Row */}
@@ -251,6 +225,7 @@ export const HomePage = () => {
                                             initial={{ opacity: 0, x: -10 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.6 + i * 0.05 }}
+                                            onClick={() => navigate(`/transaction/${tx.id}`)}
                                             className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer"
                                         >
                                             <div className="flex items-center gap-3">
@@ -264,8 +239,12 @@ export const HomePage = () => {
                                                     }
                                                 </div>
                                                 <div>
-                                                    <p className="text-white font-bold text-sm">{tx.name}</p>
-                                                    <p className="text-gray-500 text-[11px]">{tx.date} • {tx.time}</p>
+                                                    <p className="text-white font-bold text-sm">
+                                                        {t(`history.tx_names.${tx.name}`, tx.name)}
+                                                    </p>
+                                                    <p className="text-gray-500 text-[11px]">
+                                                        {tx.date === 'today' ? t('history.today', 'امروز') : tx.date === 'yesterday' ? t('history.yesterday', 'دیروز') : tx.date} • {tx.time}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="text-left">

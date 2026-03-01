@@ -8,6 +8,7 @@ import { OfflineIndicator } from "@/shared/ui/OfflineIndicator";
 import { ToastContainer } from "@/shared/ui/Toast";
 import { ErrorFallback } from "@/shared/ui/ErrorFallback";
 import { initNative, hideSplash } from "@/shared/lib/native";
+import { AppLockScreen } from "@/shared/ui/AppLockScreen";
 
 function App() {
     const [showSplash, setShowSplash] = useState(true);
@@ -33,6 +34,7 @@ function App() {
             <AppProviders>
                 <OfflineIndicator />
                 <ToastContainer />
+                <AppLockScreen />
                 <AnimatePresence mode="wait">
                     {showSplash ? (
                         <SplashScreen key="splash" onComplete={handleSplashComplete} />

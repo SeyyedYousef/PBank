@@ -51,30 +51,30 @@ export const useWalletStore = create<WalletState>()(
         (set, get) => ({
             balance: 12450, // Default initial balance if nothing persisted
             transactions: [
-                { id: 1, type: 'send', title: 'خرید کتاب', name: 'احمد رضایی', amount: 500, time: '14:30', date: 'امروز', tracking: '29837412', status: 'success', note: 'بابت خرید کتاب' },
-                { id: 2, type: 'receive', title: 'حقوق', name: 'سارا کریمی', amount: 12000, time: '10:15', date: 'امروز', tracking: '88273611', status: 'success', note: 'حقوق ماهانه' },
-                { id: 3, type: 'send', title: 'شارژ', name: 'خرید شارژ', amount: 100, time: '21:00', date: 'دیروز', tracking: '11223344', status: 'success', note: '' },
-                { id: 4, type: 'send', title: 'کافه', name: 'کافه نادری', amount: 450, time: '18:45', date: 'دیروز', tracking: '99887766', status: 'success', note: 'قهوه با دوستان' },
-                { id: 5, type: 'receive', title: 'عودت وجه', name: 'برگشت پول', amount: 50, time: '09:00', date: '۱۴۰۲/۱۰/۰۱', tracking: '55443322', status: 'success', note: 'لغو اسنپ' },
-                { id: 6, type: 'send', title: 'قبض', name: 'قبض برق', amount: 3200, time: '12:00', date: '۱۴۰۲/۱۰/۰۱', tracking: '66778899', status: 'success', note: 'دوره آذر' },
+                { id: 1, type: 'send', title: 'buy_book', name: 'Ahmad', amount: 500, time: '14:30', date: 'today', tracking: '29837412', status: 'success', note: 'book_purchase' },
+                { id: 2, type: 'receive', title: 'salary', name: 'Sara', amount: 12000, time: '10:15', date: 'today', tracking: '88273611', status: 'success', note: 'monthly_salary' },
+                { id: 3, type: 'send', title: 'topup', name: 'Mobile Topup', amount: 100, time: '21:00', date: 'yesterday', tracking: '11223344', status: 'success', note: '' },
+                { id: 4, type: 'send', title: 'cafe', name: 'Naderi Cafe', amount: 450, time: '18:45', date: 'yesterday', tracking: '99887766', status: 'success', note: 'coffee_friends' },
+                { id: 5, type: 'receive', title: 'refund', name: 'Refund', amount: 50, time: '09:00', date: '2024/01/01', tracking: '55443322', status: 'success', note: 'ride_cancel' },
+                { id: 6, type: 'send', title: 'bill', name: 'Electricity Bill', amount: 3200, time: '12:00', date: '2024/01/01', tracking: '66778899', status: 'success', note: 'dec_bill' },
             ], // Default initial transactions
             pbankId: "8888" + Math.floor(Math.random() * 1000000000000).toString().padStart(12, '0'),
 
             sendMoney: (amount, recipient, message) => {
                 const { balance, transactions } = get();
-                if (balance < amount) throw new Error("موجودی کافی نیست!");
+                if (balance < amount) throw new Error("INSUFFICIENT_FUNDS");
 
                 const newTransaction: Transaction = {
                     id: Date.now().toString(),
                     type: 'send',
                     amount: amount,
-                    title: `انتقال به ${recipient}`,
+                    title: recipient,
                     name: recipient,
-                    date: new Date().toLocaleDateString('fa-IR'),
-                    time: new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }),
+                    date: new Date().toISOString().split('T')[0],
+                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
                     tracking: Math.floor(Math.random() * 100000000).toString(),
                     status: 'success',
-                    note: 'انتقال وجه',
+                    note: 'transfer',
                     message: message
                 };
 
@@ -90,13 +90,13 @@ export const useWalletStore = create<WalletState>()(
                     id: Date.now().toString(),
                     type: 'receive',
                     amount: amount,
-                    title: `دریافت از ${sender}`,
+                    title: sender,
                     name: sender,
-                    date: new Date().toLocaleDateString('fa-IR'),
-                    time: new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }),
+                    date: new Date().toISOString().split('T')[0],
+                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
                     tracking: Math.floor(Math.random() * 100000000).toString(),
                     status: 'success',
-                    note: 'دریافت وجه',
+                    note: 'receive',
                     message: message
                 };
 

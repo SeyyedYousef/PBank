@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Logo } from '@/shared/ui/Logo';
 
 // ═══════════════════════════════════════════════
 // PARTICLE FIELD - floating ambient dots
@@ -136,23 +137,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
                             {/* Inner glow ring */}
                             <div className="absolute inset-[3px] rounded-[2.5rem] border border-white/[0.04] bg-gradient-to-b from-white/[0.02] to-transparent" />
 
-                            {/* SVG Logo — Dollar sign with path animation */}
-                            <svg
-                                className="w-20 h-20 text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <motion.path
-                                    d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                                    initial={{ pathLength: 0, opacity: 0 }}
-                                    animate={{ pathLength: 1, opacity: 1 }}
-                                    transition={{ duration: 2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-                                />
-                            </svg>
+                            <Logo animated size="xl" />
                         </motion.div>
                     </div>
 

@@ -4,16 +4,17 @@ import {
     ArrowLeft, ArrowUpRight, ArrowDownLeft, Copy, Share2,
     RefreshCw, CheckCircle2, Clock, XCircle, ShieldCheck
 } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { Transaction } from '@/store/walletStore';
+import { useWalletStore, Transaction } from '@/store/walletStore';
 
 export const TransactionDetailPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const location = useLocation();
-    const tx: Transaction = location.state?.transaction;
+    const { id } = useParams();
+    const { transactions } = useWalletStore();
+    const tx: Transaction | undefined = transactions.find(t => String(t.id) === id);
     const [copiedField, setCopiedField] = useState<string | null>(null);
 
     if (!tx) {
@@ -136,12 +137,12 @@ export const TransactionDetailPage = () => {
                     transition={{ delay: 0.15 }}
                     className="omega-glass-card rounded-2xl p-5"
                 >
-                    <DetailRow label={t('history.details.counterparty')} value={tx.name} />
-                    <DetailRow label={t('history.details.date')} value={tx.date} />
+                    <DetailRow label={t('history.details.counterparty')} value={t(`history.tx_names.${tx.name}`, tx.name)} />
+                    <DetailRow label={t('history.details.date')} value={tx.date === 'today' ? t('history.today', 'امروز') : tx.date === 'yesterday' ? t('history.yesterday', 'دیروز') : tx.date} />
                     <DetailRow label={t('history.details.time')} value={tx.time} />
                     <DetailRow label={t('history.details.tracking_code')} value={tx.tracking} copyable mono />
                     <DetailRow label={t('history.details.fee')} value={t('common.free')} />
-                    {tx.note && <DetailRow label={t('history.details.note')} value={tx.note} />}
+                    {tx.note && <DetailRow label={t('history.details.note')} value={t(`history.tx_notes.${tx.note}`, tx.note)} />}
                     {tx.message && <DetailRow label={t('history.details.message')} value={tx.message} />}
                 </motion.div>
 
