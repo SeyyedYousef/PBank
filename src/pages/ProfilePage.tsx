@@ -3,6 +3,7 @@ import { useAuthStore } from '../store/authStore';
 import { useWalletStore } from '@/store/walletStore';
 import { usePrivacy } from '@/shared/context/PrivacyContext';
 import { useGamification } from '@/shared/context/GamificationContext';
+import { useTheme } from '@/shared/context/ThemeContext';
 import {
     User, LogOut, Check, Eye, EyeOff, Edit2, Crown, Shield,
     TrendingUp, TrendingDown, ChevronRight, Globe, Moon, Bell,
@@ -25,9 +26,10 @@ import { SecurityToggleSwitch } from '@/shared/ui/SecurityToggleSwitch';
 // MAIN PROFILE PAGE
 // ═══════════════════════════════════════════════
 export const ProfilePage = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { logout, user } = useAuthStore();
     const { balance, transactions } = useWalletStore();
+    const { theme, setTheme } = useTheme();
     const { playClick } = useSound();
     const { isPrivacyMode, togglePrivacy, biometricEnabled, toggleBiometric, incognitoKeyboardEnabled, toggleIncognitoKeyboard, geoFencingEnabled, toggleGeoFencing } = usePrivacy();
     const { level, xp, nextLevelXp, tierName } = useGamification();
@@ -103,9 +105,9 @@ export const ProfilePage = () => {
     };
 
     const sectionTabs = [
-        { id: 'analytics', label: 'تحلیل', icon: BarChart3 },
-        { id: 'security', label: 'امنیت', icon: Shield },
-        { id: 'settings', label: 'تنظیمات', icon: Settings2 },
+        { id: 'analytics', label: t('profile.stats_widget.title', 'تحلیل'), icon: BarChart3 },
+        { id: 'security', label: t('settings.security', 'امنیت'), icon: Shield },
+        { id: 'settings', label: t('settings.title', 'تنظیمات'), icon: Settings2 },
     ] as const;
 
     return (
@@ -205,9 +207,8 @@ export const ProfilePage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Balance */}
                                     <div className="mb-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1">موجودی</p>
+                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1">{t('home.balance', 'موجودی')}</p>
                                         <div className="flex items-baseline gap-2">
                                             <span className="text-3xl font-black text-white">
                                                 <AnimatedNumber value={balance} visible={!isPrivacyMode} />
@@ -272,7 +273,7 @@ export const ProfilePage = () => {
                                     <div className="omega-glass rounded-[24px] p-5 space-y-4">
                                         <div className="flex items-center justify-between">
                                             <div>
-                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">روند موجودی</p>
+                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('profile.stats_widget.title', 'روند موجودی')}</p>
                                                 <p className="text-white font-black text-xl mt-1">
                                                     {isPrivacyMode ? '•••' : `${balance.toLocaleString()} AFN`}
                                                 </p>
@@ -357,7 +358,7 @@ export const ProfilePage = () => {
 
                                     {/* Financial Health */}
                                     <div className="omega-glass rounded-[24px] p-5">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-4">سلامت مالی</p>
+                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-4">{t('profile.hub.groups.security', 'سلامت مالی')}</p>
                                         <div className="flex items-center gap-6">
                                             <ProgressRing percent={healthScore} size={80} stroke={6} color={healthColor}>
                                                 <span className="text-xl font-black" style={{ color: healthColor }}>{healthScore}</span>
@@ -399,8 +400,8 @@ export const ProfilePage = () => {
                                                         <Shield className="w-5 h-5 text-emerald-400" />
                                                     </div>
                                                     <div>
-                                                        <p className="text-white font-bold text-sm">مرکز امنیت</p>
-                                                        <p className="text-gray-500 text-[10px]">سطح حفاظت حساب</p>
+                                                        <p className="text-white font-bold text-sm">{t('settings.security', 'مرکز امنیت')}</p>
+                                                        <p className="text-gray-500 text-[10px]">{t('profile.hub.groups.security', 'سطح حفاظت حساب')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/20">
@@ -428,15 +429,15 @@ export const ProfilePage = () => {
                                         {[
                                             {
                                                 icon: <Fingerprint className={biometricEnabled ? 'text-emerald-400' : 'text-gray-500'} />,
-                                                title: 'اثر انگشت / Face ID',
-                                                desc: 'تایید بیومتریک برای هر تراکنش',
+                                                title: t('settings.biometric', 'اثر انگشت / Face ID'),
+                                                desc: t('settings.biometric_desc', 'تایید بیومتریک برای هر تراکنش'),
                                                 enabled: biometricEnabled,
                                                 onToggle: toggleBiometric,
                                             },
                                             {
                                                 icon: <Lock className={incognitoKeyboardEnabled ? 'text-emerald-400' : 'text-gray-500'} />,
-                                                title: 'کیبورد امن',
-                                                desc: 'صفحه‌کلید تصادفی داخلی',
+                                                title: t('settings.secure_keyboard', 'کیبورد امن'),
+                                                desc: t('settings.secure_keyboard_desc', 'صفحه‌کلید تصادفی داخلی'),
                                                 enabled: incognitoKeyboardEnabled,
                                                 onToggle: toggleIncognitoKeyboard,
                                             },
@@ -472,7 +473,7 @@ export const ProfilePage = () => {
                                     {/* Active Sessions */}
                                     <div className="omega-glass rounded-[24px] p-5 space-y-4">
                                         <div className="flex items-center justify-between">
-                                            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">نشست‌های فعال</p>
+                                            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.devices', 'نشست‌های فعال')}</p>
                                             <span className="bg-emerald-500/15 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full">3 دستگاه</span>
                                         </div>
 
@@ -537,16 +538,17 @@ export const ProfilePage = () => {
                                 >
                                     {/* Language Switcher */}
                                     <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">زبان برنامه</p>
+                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.language', 'زبان برنامه')}</p>
                                         <div className="grid grid-cols-3 gap-3">
                                             {[
                                                 { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
-                                                { code: 'en', name: 'English', flag: '🇺🇸' },
+                                                { code: 'en', name: 'English', flag: '🇬🇧' },
                                                 { code: 'ps', name: 'پشتو', flag: '🇦🇫' },
                                             ].map(lang => (
                                                 <button
                                                     key={lang.code}
-                                                    className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
+                                                    onClick={() => { i18n.changeLanguage(lang.code); playClick(); }}
+                                                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all group ${i18n.language === lang.code ? 'bg-primary/10 border-primary/40 shadow-[0_0_20px_rgba(127,0,255,0.1)]' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
                                                 >
                                                     <span className="text-3xl group-hover:scale-125 transition-transform">{lang.flag}</span>
                                                     <span className="text-white text-xs font-bold">{lang.name}</span>
@@ -557,25 +559,26 @@ export const ProfilePage = () => {
 
                                     {/* Theme Switcher */}
                                     <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">تم برنامه</p>
+                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.theme', 'تم برنامه')}</p>
                                         <div className="grid grid-cols-3 gap-3">
                                             {[
-                                                { id: 'dark', name: 'تاریک', icon: Moon, gradient: 'from-gray-900 to-black', active: true },
-                                                { id: 'light', name: 'روشن', icon: Sparkles, gradient: 'from-gray-200 to-white', active: false },
-                                                { id: 'cyber', name: 'سایبرپانک', icon: Sparkles, gradient: 'from-purple-900 to-primary', active: false },
-                                            ].map(theme => (
+                                                { id: 'dark', name: t('settings.theme_dark', 'تاریک'), icon: Moon, gradient: 'from-gray-900 to-black' },
+                                                { id: 'light', name: t('settings.theme_light', 'روشن'), icon: Sparkles, gradient: 'from-gray-200 to-white' },
+                                                { id: 'cyber', name: 'سایبرپانک', icon: Sparkles, gradient: 'from-purple-900 to-primary' },
+                                            ].map(themeItem => (
                                                 <button
-                                                    key={theme.id}
-                                                    className={`relative overflow-hidden flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${theme.active
+                                                    key={themeItem.id}
+                                                    onClick={() => { setTheme(themeItem.id as any); playClick(); }}
+                                                    className={`relative overflow-hidden flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${theme === themeItem.id
                                                         ? 'border-primary/40 bg-primary/10 shadow-lg shadow-primary/10'
                                                         : 'border-white/10 bg-white/5 hover:bg-white/10'
                                                         }`}
                                                 >
-                                                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center border border-white/10`}>
-                                                        <theme.icon className="w-5 h-5 text-white" />
+                                                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${themeItem.gradient} flex items-center justify-center border border-white/10`}>
+                                                        <themeItem.icon className={`w-5 h-5 ${theme === 'dark' || themeItem.id === 'dark' ? 'text-white' : (themeItem.id === 'light' ? 'text-amber-500' : 'text-white')}`} />
                                                     </div>
-                                                    <span className="text-white text-xs font-bold">{theme.name}</span>
-                                                    {theme.active && (
+                                                    <span className={`text-xs font-bold ${themeItem.id === 'light' && theme === 'light' ? 'text-gray-800' : 'text-white'}`}>{themeItem.name}</span>
+                                                    {theme === themeItem.id && (
                                                         <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-primary flex items-center justify-center">
                                                             <Check className="w-2 h-2 text-white" />
                                                         </div>
@@ -588,8 +591,8 @@ export const ProfilePage = () => {
                                     {/* More Settings */}
                                     <div className="omega-glass rounded-[24px] overflow-hidden divide-y divide-white/5">
                                         {[
-                                            { icon: <Bell className="text-blue-400" />, title: 'اعلان‌ها', desc: 'مدیریت نوتیفیکیشن‌ها' },
-                                            { icon: <Key className="text-amber-400" />, title: 'تغییر رمز عبور', desc: 'به‌روزرسانی رمز امنیتی' },
+                                            { icon: <Bell className="text-blue-400" />, title: t('settings.notifications_label', 'اعلان‌ها'), desc: 'مدیریت نوتیفیکیشن‌ها' },
+                                            { icon: <Key className="text-amber-400" />, title: t('settings.change_password', 'تغییر رمز عبور'), desc: 'به‌روزرسانی رمز امنیتی' },
                                             { icon: <Wallet className="text-emerald-400" />, title: 'حساب‌های بانکی', desc: 'حساب‌های متصل' },
                                         ].map((item, i) => (
                                             <motion.button

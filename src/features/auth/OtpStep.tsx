@@ -32,7 +32,8 @@ export const OtpStep: React.FC<OtpStepProps> = ({ phone, onSubmit, onEditPhone }
 
     const handleVerify = useCallback((code: string) => {
         setIsLoading(true);
-        if (code === '00000') {
+        // Valid code is 88888 for demo purposes
+        if (code !== '88888') {
             setTimeout(() => {
                 setIsLoading(false);
                 setIsError(true);
@@ -44,6 +45,7 @@ export const OtpStep: React.FC<OtpStepProps> = ({ phone, onSubmit, onEditPhone }
         // Success animation then proceed
         setTimeout(() => {
             setIsLoading(false);
+            setIsError(false);
             setIsVerified(true);
             setTimeout(() => onSubmit(code), 600);
         }, 800);
@@ -202,7 +204,7 @@ export const OtpStep: React.FC<OtpStepProps> = ({ phone, onSubmit, onEditPhone }
                                 exit={{ opacity: 0 }}
                                 className="text-center text-red-400 text-sm font-bold"
                             >
-                                {t('auth.otp.error')}
+                                {t('auth.otp.error_demo', 'کد وارد شده صحیح نیست (88888)')}
                             </motion.p>
                         )}
                     </AnimatePresence>

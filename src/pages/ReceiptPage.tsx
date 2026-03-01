@@ -39,6 +39,19 @@ export const ReceiptPage = () => {
         }
     };
 
+    const downloadReceipt = () => {
+        const text = `PBANK RECEIPT\n------------------\n${t('receipt.total_amount')}: ${Number(amount).toLocaleString()} AFN\n${t('receipt.recipient')}: ${recipient}\nDate: ${date} ${time}\n${t('receipt.tracking')}: ${trackingCode}`;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Receipt_${trackingCode}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -154,7 +167,7 @@ export const ReceiptPage = () => {
                         <Share2 className="w-5 h-5 ml-2" />
                         {t('receipt.share')}
                     </Button>
-                    <Button variant="secondary" className="h-12 border-white/10">
+                    <Button variant="secondary" className="h-12 border-white/10" onClick={downloadReceipt}>
                         <Download className="w-5 h-5 ml-2" />
                         {t('receipt.download')}
                     </Button>

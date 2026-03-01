@@ -7,8 +7,10 @@ import {
     ArrowLeft, Crown, Star, Gift, Zap, Trophy, Lock,
     Sparkles, Target, Flame
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const RewardsPage = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const {
         level, xp, nextLevelXp, tierName,
@@ -31,9 +33,9 @@ export const RewardsPage = () => {
     };
 
     const tabs = [
-        { id: 'overview', label: 'نمای کلی', icon: Star },
-        { id: 'badges', label: 'نشان‌ها', icon: Trophy },
-        { id: 'privileges', label: 'امتیازات', icon: Crown },
+        { id: 'overview', label: t('rewards.tabs.overview', 'نمای کلی'), icon: Star },
+        { id: 'badges', label: t('rewards.tabs.badges', 'نشان‌ها'), icon: Trophy },
+        { id: 'privileges', label: t('rewards.tabs.privileges', 'امتیازات'), icon: Crown },
     ] as const;
 
     return (
@@ -47,7 +49,7 @@ export const RewardsPage = () => {
                     >
                         <ArrowLeft className="w-5 h-5 text-white" />
                     </button>
-                    <h1 className="text-lg font-bold text-white">پاداش‌ها و سطح‌بندی</h1>
+                    <h1 className="text-lg font-bold text-white">{t('rewards.title', 'پاداش‌ها و سطح‌بندی')}</h1>
                 </div>
             </div>
 
@@ -83,7 +85,7 @@ export const RewardsPage = () => {
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="text-3xl font-black text-white">{level}</span>
-                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-bold">سطح</span>
+                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-bold">{t('rewards.level', 'سطح')}</span>
                         </div>
                     </div>
 
@@ -109,7 +111,7 @@ export const RewardsPage = () => {
                     >
                         <div className="flex items-center gap-2">
                             <Flame className="w-5 h-5 text-orange-400" />
-                            <span className="text-white font-bold text-sm">روزهای متوالی</span>
+                            <span className="text-white font-bold text-sm">{t('rewards.streak', 'روزهای متوالی')}</span>
                         </div>
                         <p className="text-3xl font-black text-orange-400">{streakDays}</p>
                         <button
@@ -120,7 +122,7 @@ export const RewardsPage = () => {
                                 : 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30 active:scale-95'
                                 }`}
                         >
-                            {isStreakClaimedToday ? '✓ امروز گرفتید' : 'دریافت امتیاز'}
+                            {isStreakClaimedToday ? t('rewards.streak_claimed', '✓ امروز گرفتید') : t('rewards.claim_streak', 'دریافت امتیاز')}
                         </button>
                     </motion.div>
 
@@ -133,7 +135,7 @@ export const RewardsPage = () => {
                     >
                         <div className="flex items-center gap-2">
                             <Gift className="w-5 h-5 text-purple-400" />
-                            <span className="text-white font-bold text-sm">جعبه رمز</span>
+                            <span className="text-white font-bold text-sm">{t('rewards.mystery_box', 'جعبه رمز')}</span>
                         </div>
                         <p className="text-3xl font-black text-purple-400">{mysteryBoxCount}</p>
                         <button
@@ -144,7 +146,7 @@ export const RewardsPage = () => {
                                 : 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/30 active:scale-95 animate-breathe'
                                 }`}
                         >
-                            {mysteryBoxCount <= 0 ? 'جعبه‌ای ندارید' : '🎁 باز کردن'}
+                            {mysteryBoxCount <= 0 ? t('rewards.no_mystery_box', 'جعبه‌ای ندارید') : t('rewards.open_mystery_box', '🎁 باز کردن')}
                         </button>
                     </motion.div>
                 </div>
@@ -254,12 +256,12 @@ export const RewardsPage = () => {
                             <div className="omega-glass rounded-2xl p-4 space-y-4">
                                 <h3 className="text-white font-bold text-sm flex items-center gap-2">
                                     <Target className="w-4 h-4 text-primary-glow" />
-                                    اهداف پیش‌رو
+                                    {t('rewards.upcoming_goals', 'اهداف پیش‌رو')}
                                 </h3>
                                 {[
-                                    { label: 'سطح بعدی', xp: nextLevelXp, icon: '⭐' },
-                                    { label: 'نشان طلایی', xp: 5000, icon: '🏆' },
-                                    { label: 'باز شدن ویژگی VIP', xp: 10000, icon: '💎' },
+                                    { label: t('rewards.goal_next_level', 'سطح بعدی'), xp: nextLevelXp, icon: '⭐' },
+                                    { label: t('rewards.goal_gold_badge', 'نشان طلایی'), xp: 5000, icon: '🏆' },
+                                    { label: t('rewards.goal_vip', 'باز شدن ویژگی VIP'), xp: 10000, icon: '💎' },
                                 ].map((goal, i) => (
                                     <div key={i} className="space-y-2">
                                         <div className="flex items-center justify-between">
@@ -284,9 +286,9 @@ export const RewardsPage = () => {
                             {/* Stats */}
                             <div className="grid grid-cols-3 gap-3">
                                 {[
-                                    { label: 'نشان‌ها', value: badges.filter(b => b.isUnlocked).length, total: badges.length, color: 'text-amber-400' },
-                                    { label: 'امتیازات', value: privileges.filter(p => p.isUnlocked).length, total: privileges.length, color: 'text-emerald-400' },
-                                    { label: 'کل XP', value: xp, total: null, color: 'text-purple-400' },
+                                    { label: t('rewards.tabs.badges', 'نشان‌ها'), value: badges.filter(b => b.isUnlocked).length, total: badges.length, color: 'text-amber-400' },
+                                    { label: t('rewards.tabs.privileges', 'امتیازات'), value: privileges.filter(p => p.isUnlocked).length, total: privileges.length, color: 'text-emerald-400' },
+                                    { label: t('rewards.total_xp', 'کل XP'), value: xp, total: null, color: 'text-purple-400' },
                                 ].map((stat, i) => (
                                     <div key={i} className="omega-glass rounded-xl p-3 text-center">
                                         <p className={`text-xl font-black ${stat.color}`}>{stat.value}</p>

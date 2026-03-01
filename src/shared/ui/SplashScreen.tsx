@@ -5,7 +5,7 @@ import { Logo } from '@/shared/ui/Logo';
 // ═══════════════════════════════════════════════
 // PARTICLE FIELD - floating ambient dots
 // ═══════════════════════════════════════════════
-const particles = Array.from({ length: 30 }, (_, i) => ({
+const particles = Array.from({ length: 10 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,

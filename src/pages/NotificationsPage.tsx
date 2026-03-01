@@ -6,6 +6,7 @@ import {
     Trash2, Check, CheckCheck, Info
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type NotifType = 'transaction' | 'security' | 'reward' | 'system' | 'promo';
 
@@ -51,6 +52,7 @@ const getNotifColor = (type: NotifType) => {
 };
 
 export const NotificationsPage = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState(mockNotifications);
     const [filter, setFilter] = useState<'all' | 'unread'>('all');
@@ -84,12 +86,12 @@ export const NotificationsPage = () => {
                         <button
                             onClick={() => navigate(-1)}
                             className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"
-                            aria-label="بازگشت"
+                            aria-label={t('accessibility.back_button', 'بازگشت')}
                         >
                             <ArrowLeft className="w-4 h-4 text-gray-400 rtl:rotate-180" />
                         </button>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-lg font-bold text-white">اعلان‌ها</h1>
+                            <h1 className="text-lg font-bold text-white">{t('notifications.title', 'اعلان‌ها')}</h1>
                             {unreadCount > 0 && (
                                 <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-xs font-bold">
                                     {unreadCount}
@@ -103,7 +105,7 @@ export const NotificationsPage = () => {
                             className="text-xs font-bold text-primary hover:text-white transition-colors flex items-center gap-1"
                         >
                             <CheckCheck className="w-3.5 h-3.5" />
-                            خواندن همه
+                            {t('notifications.mark_all_read', 'خواندن همه')}
                         </button>
                     )}
                 </div>
@@ -119,7 +121,7 @@ export const NotificationsPage = () => {
                                 : 'text-gray-500 hover:text-gray-300'
                                 }`}
                         >
-                            {f === 'all' ? 'همه' : 'خوانده نشده'}
+                            {f === 'all' ? t('notifications.filter.all', 'همه') : t('notifications.filter.unread', 'خوانده نشده')}
                         </button>
                     ))}
                 </div>
@@ -136,7 +138,7 @@ export const NotificationsPage = () => {
                             <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto">
                                 <Bell className="w-8 h-8 text-gray-600" />
                             </div>
-                            <p className="text-gray-500 text-sm">اعلان جدیدی وجود ندارد</p>
+                            <p className="text-gray-500 text-sm">{t('notifications.empty', 'اعلان جدیدی وجود ندارد')}</p>
                         </motion.div>
                     ) : (
                         filtered.map((notif, i) => {

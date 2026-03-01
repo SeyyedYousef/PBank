@@ -33,6 +33,7 @@ export const TransferPage = () => {
     const [showSecureKeyboard, setShowSecureKeyboard] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [submitError, setSubmitError] = useState('');
+    const [isTransferring, setIsTransferring] = useState(false);
 
     const handleTransferStep = () => {
         setErrors({});
@@ -56,9 +57,25 @@ export const TransferPage = () => {
         }
     };
 
-    const performTransfer = () => {
+    const performTransfer = async () => {
         try {
+            setIsTransferring(true);
+            setSubmitError('');
             const amountNum = Number(amount);
+
+            // Mock network simulation
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (!navigator.onLine) {
+                        reject(new Error(t('common.offline', 'دسترسی به اینترنت قطع است')));
+                    } else if (Math.random() > 0.9) {
+                        reject(new Error('خطا در ارتباط با سرور بانکی (Timeout)'));
+                    } else {
+                        resolve(true);
+                    }
+                }, 1500);
+            });
+
             sendMoney(amountNum, recipient, message);
             addXp(50); // Reward for activity
 
@@ -74,6 +91,8 @@ export const TransferPage = () => {
             });
         } catch (error) {
             setSubmitError((error as Error).message);
+        } finally {
+            setIsTransferring(false);
         }
     };
 
@@ -279,10 +298,11 @@ export const TransferPage = () => {
                 <div className="fixed bottom-24 left-6 right-6">
                     <Button
                         onClick={handleTransferStep}
-                        disabled={!amount || !recipient}
-                        className="w-full h-14 text-lg font-bold shadow-[0_0_30px_rgba(127,0,255,0.4)] disabled:opacity-50 disabled:shadow-none"
+                        disabled={!amount || !recipient || isTransferring}
+                        isLoading={isTransferring}
+                        className="w-full h-14 text-lg font-bold shadow-[0_0_30px_rgba(127,0,255,0.4)] disabled:opacity-50 disabled:shadow-none bg-gradient-to-r from-primary to-purple-600 border-none"
                     >
-                        {t('transfer.submit')}
+                        {isTransferring ? 'در حال پردازش...' : t('transfer.submit')}
                     </Button>
                 </div>
             )}

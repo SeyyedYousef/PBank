@@ -6,6 +6,7 @@ import {
     Send, MoreVertical, Edit2, Trash2, X
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Contact {
     id: string;
@@ -29,6 +30,7 @@ const mockContacts: Contact[] = [
 ];
 
 export const ContactsPage = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [contacts, setContacts] = useState(mockContacts);
     const [searchQuery, setSearchQuery] = useState('');
@@ -111,21 +113,21 @@ export const ContactsPage = () => {
                 <button
                     onClick={() => toggleFav(contact.id)}
                     className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                    aria-label={contact.isFavorite ? 'حذف از علاقه‌مندی‌ها' : 'افزودن به علاقه‌مندی‌ها'}
+                    aria-label={contact.isFavorite ? t('contacts.remove_fav', 'حذف از علاقه‌مندی‌ها') : t('contacts.add_fav', 'افزودن به علاقه‌مندی‌ها')}
                 >
                     <Star className={`w-4 h-4 ${contact.isFavorite ? 'text-amber-400 fill-amber-400' : 'text-gray-600'}`} />
                 </button>
                 <button
                     onClick={() => sendTo(contact)}
                     className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
-                    aria-label="ارسال پول"
+                    aria-label={t('contacts.send_money', 'ارسال پول')}
                 >
                     <Send className="w-4 h-4 text-primary" />
                 </button>
                 <button
                     onClick={() => setSelectedContact(selectedContact === contact.id ? null : contact.id)}
                     className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                    aria-label="گزینه‌های بیشتر"
+                    aria-label={t('contacts.more_options', 'گزینه‌های بیشتر')}
                 >
                     <MoreVertical className="w-4 h-4 text-gray-500" />
                 </button>
@@ -144,19 +146,19 @@ export const ContactsPage = () => {
                             onClick={() => { setSelectedContact(null); }}
                             className="w-full px-4 py-3 flex items-center gap-2 text-sm text-gray-300 hover:bg-white/5 transition-colors"
                         >
-                            <Edit2 className="w-4 h-4" /> ویرایش
+                            <Edit2 className="w-4 h-4" /> {t('common.edit', 'ویرایش')}
                         </button>
                         <button
                             onClick={() => { navigator.clipboard.writeText(contact.phone); setSelectedContact(null); }}
                             className="w-full px-4 py-3 flex items-center gap-2 text-sm text-gray-300 hover:bg-white/5 transition-colors"
                         >
-                            <Phone className="w-4 h-4" /> کپی شماره
+                            <Phone className="w-4 h-4" /> {t('contacts.copy_phone', 'کپی شماره')}
                         </button>
                         <button
                             onClick={() => deleteContact(contact.id)}
                             className="w-full px-4 py-3 flex items-center gap-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
                         >
-                            <Trash2 className="w-4 h-4" /> حذف
+                            <Trash2 className="w-4 h-4" /> {t('common.delete', 'حذف')}
                         </button>
                     </motion.div>
                 )}
@@ -170,17 +172,17 @@ export const ContactsPage = () => {
             <div className="sticky top-0 z-40 px-6 py-4 backdrop-blur-xl bg-black/30 border-b border-white/5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center" aria-label="بازگشت">
+                        <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center" aria-label={t('accessibility.back_button', 'بازگشت')}>
                             <ArrowLeft className="w-4 h-4 text-gray-400 rtl:rotate-180" />
                         </button>
-                        <h1 className="text-lg font-bold text-white">مخاطبین</h1>
+                        <h1 className="text-lg font-bold text-white">{t('services.addressBook', 'مخاطبین')}</h1>
                         <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded-full">{contacts.length}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <button onClick={() => setShowSearch(!showSearch)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center" aria-label="جستجو">
+                        <button onClick={() => setShowSearch(!showSearch)} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center" aria-label={t('contacts.search', 'جستجو')}>
                             {showSearch ? <X className="w-4 h-4 text-gray-400" /> : <Search className="w-4 h-4 text-gray-400" />}
                         </button>
-                        <button onClick={() => setShowAddModal(true)} className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center" aria-label="افزودن مخاطب">
+                        <button onClick={() => setShowAddModal(true)} className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center" aria-label={t('contacts.add.title', 'افزودن مخاطب')}>
                             <UserPlus className="w-4 h-4 text-primary" />
                         </button>
                     </div>
@@ -194,7 +196,7 @@ export const ContactsPage = () => {
                                 <Search className="absolute right-4 top-1/2 mt-1.5 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                 <input
                                     type="text"
-                                    placeholder="جستجوی نام، شماره یا PBank ID..."
+                                    placeholder={t('contacts.search_placeholder', 'جستجوی نام، شماره یا PBank ID...')}
                                     value={searchQuery}
                                     onChange={e => setSearchQuery(e.target.value)}
                                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pr-11 pl-4 text-sm text-white placeholder-gray-500 outline-none focus:border-primary/50 transition-colors"
@@ -212,7 +214,7 @@ export const ContactsPage = () => {
                     <div>
                         <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5">
                             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                            علاقه‌مندی‌ها
+                            {t('contacts.favorites', 'علاقه‌مندی‌ها')}
                         </p>
                         <div className="space-y-2">
                             {favorites.map(c => <ContactCard key={c.id} contact={c} />)}
@@ -225,7 +227,7 @@ export const ContactsPage = () => {
                     <div>
                         <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5">
                             <User className="w-3 h-3" />
-                            همه مخاطبین
+                            {t('contacts.all', 'همه مخاطبین')}
                         </p>
                         <div className="space-y-2">
                             {others.map(c => <ContactCard key={c.id} contact={c} />)}
@@ -238,7 +240,7 @@ export const ContactsPage = () => {
                         <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto">
                             <User className="w-7 h-7 text-gray-600" />
                         </div>
-                        <p className="text-gray-500 text-sm">مخاطبی یافت نشد</p>
+                        <p className="text-gray-500 text-sm">{t('contacts.not_found', 'مخاطبی یافت نشد')}</p>
                     </div>
                 )}
             </div>
@@ -262,21 +264,21 @@ export const ContactsPage = () => {
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="w-12 h-1 bg-white/10 rounded-full mx-auto" />
-                            <h3 className="text-lg font-bold text-white text-center">افزودن مخاطب جدید</h3>
+                            <h3 className="text-lg font-bold text-white text-center">{t('contacts.add.title', 'افزودن مخاطب جدید')}</h3>
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="text-xs text-gray-400 font-bold mb-1.5 block">نام</label>
+                                    <label className="text-xs text-gray-400 font-bold mb-1.5 block">{t('contacts.add.name', 'نام')}</label>
                                     <input
                                         type="text"
                                         value={newName}
                                         onChange={e => setNewName(e.target.value)}
-                                        placeholder="نام مخاطب..."
+                                        placeholder={t('contacts.add.name_placeholder', 'نام مخاطب...')}
                                         className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm text-white placeholder-gray-600 outline-none focus:border-primary/50"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-xs text-gray-400 font-bold mb-1.5 block">شماره تلفن</label>
+                                    <label className="text-xs text-gray-400 font-bold mb-1.5 block">{t('contacts.add.phone', 'شماره تلفن')}</label>
                                     <input
                                         type="text"
                                         value={newPhone}
@@ -293,7 +295,7 @@ export const ContactsPage = () => {
                                 disabled={!newName.trim() || !newPhone.trim()}
                                 className="w-full py-4 rounded-2xl bg-gradient-to-r from-primary to-purple-600 text-white font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/30"
                             >
-                                افزودن مخاطب
+                                {t('contacts.add.submit', 'افزودن مخاطب')}
                             </button>
                         </motion.div>
                     </motion.div>

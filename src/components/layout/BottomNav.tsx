@@ -28,20 +28,23 @@ export const BottomNav = () => {
                     to={item.path}
                     aria-label={item.label}
                     className={({ isActive }) => cn(
-                        "relative p-3 rounded-full transition-all duration-300",
+                        "relative px-3 py-2 rounded-xl transition-all duration-300 flex flex-col items-center gap-1",
                         "hover:bg-white/5",
                         "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-                        isActive ? "text-primary-glow scale-110" : "text-gray-400"
+                        isActive ? "text-primary-glow" : "text-gray-400"
                     )}
                 >
                     {({ isActive }) => (
                         <>
                             <item.icon
-                                className={cn("w-6 h-6", isActive && "drop-shadow-[0_0_8px_rgba(191,85,236,0.6)]")}
+                                className={cn("w-5 h-5", isActive && "drop-shadow-[0_0_8px_rgba(191,85,236,0.6)]")}
                                 aria-hidden="true"
                             />
+                            <span className={cn("text-[10px] font-bold", isActive ? "opacity-100" : "opacity-70")}>
+                                {item.label}
+                            </span>
                             {isActive && (
-                                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-glow rounded-full" aria-hidden="true" />
+                                <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-glow rounded-full" aria-hidden="true" />
                             )}
                         </>
                     )}
