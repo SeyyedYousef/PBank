@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/shared/ui/Button';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import {
-    ArrowLeft, Smartphone, Zap, Wifi, Plane, Building, MoreHorizontal,
+    ArrowLeft, Smartphone, Zap, Heart, Plane, Building, Wallet,
     Check, Calendar, MapPin, Users, Star, Clock, Search
 } from 'lucide-react';
 
@@ -19,31 +19,31 @@ const serviceConfigs: Record<string, {
 }> = {
     'mobile-credit': {
         title: 'کریدت موبایل',
-        subtitle: 'شارژ و بسته اینترنت',
+        subtitle: 'کریدت و بسته',
         icon: Smartphone,
         color: 'text-blue-400',
         bgGradient: 'from-blue-600/20 to-blue-900/10',
         glowColor: 'bg-blue-500/30',
     },
     'electricity': {
-        title: 'برق برشنا',
-        subtitle: 'پرداخت قبض برق',
+        title: 'بل برق',
+        subtitle: 'پرداخت بل برق',
         icon: Zap,
         color: 'text-amber-400',
         bgGradient: 'from-amber-600/20 to-amber-900/10',
         glowColor: 'bg-amber-500/30',
     },
-    'internet': {
-        title: 'اینترنت',
-        subtitle: 'بسته‌های اینترنت و وای‌فای',
-        icon: Wifi,
+    'humanitarian': {
+        title: 'کمک‌های بشردوستانه',
+        subtitle: 'واریز به خیریه‌ها',
+        icon: Heart,
         color: 'text-violet-400',
         bgGradient: 'from-violet-600/20 to-violet-900/10',
         glowColor: 'bg-violet-500/30',
     },
     'flights': {
-        title: 'پرواز',
-        subtitle: 'خرید بلیط هواپیما',
+        title: 'تکت طیاره',
+        subtitle: 'خرید تکت طیاره',
         icon: Plane,
         color: 'text-emerald-400',
         bgGradient: 'from-emerald-600/20 to-emerald-900/10',
@@ -57,10 +57,10 @@ const serviceConfigs: Record<string, {
         bgGradient: 'from-rose-600/20 to-rose-900/10',
         glowColor: 'bg-rose-500/30',
     },
-    'others': {
-        title: 'سایر خدمات',
-        subtitle: 'خدمات متنوع',
-        icon: MoreHorizontal,
+    'salary': {
+        title: 'پرداخت معاشات',
+        subtitle: 'واریز حقوق کارمندان',
+        icon: Wallet,
         color: 'text-gray-400',
         bgGradient: 'from-gray-600/20 to-gray-900/10',
         glowColor: 'bg-gray-500/30',
@@ -119,7 +119,7 @@ const MobileTopupUI = () => {
 
             {/* Amount Grid */}
             <div>
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">مبلغ شارژ (AFN)</p>
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">مبلغ کریدت (AFN)</p>
                 <div className="grid grid-cols-3 gap-3">
                     {amounts.map(amt => (
                         <button
@@ -163,7 +163,7 @@ const MobileTopupUI = () => {
                 className="w-full h-14 text-base font-bold shadow-lg shadow-primary/20 disabled:opacity-40 disabled:shadow-none"
             >
                 <Check className="w-5 h-5 ml-2" />
-                پرداخت و شارژ
+                پرداخت
             </Button>
         </div>
     );
@@ -266,7 +266,7 @@ const ElectricityUI = () => {
                 className="w-full h-14 text-base font-bold bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 shadow-lg shadow-amber-600/20 disabled:opacity-40 disabled:shadow-none"
             >
                 <Zap className="w-5 h-5 ml-2" />
-                پرداخت قبض
+                پرداخت بل
             </Button>
         </div>
     );
@@ -512,98 +512,86 @@ const TaxesUI = () => {
     );
 };
 
-// ── Internet Component ──
-const InternetUI = () => {
-    const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
-
-    const plans = [
-        { id: 1, name: 'بسته ۱ ماهه', data: '10GB', speed: '4G', price: 350, popular: false },
-        { id: 2, name: 'بسته ۱ ماهه', data: '30GB', speed: '4G+', price: 700, popular: true },
-        { id: 3, name: 'بسته ۱ ماهه', data: '50GB', speed: '4G+', price: 1100, popular: false },
-        { id: 4, name: 'بسته ۳ ماهه', data: '100GB', speed: '4G+', price: 2500, popular: false },
-        { id: 5, name: 'بسته شبانه', data: 'نامحدود', speed: '4G', price: 200, popular: false },
-        { id: 6, name: 'بسته VIP', data: 'نامحدود', speed: '5G', price: 5000, popular: false },
-    ];
+// ── Humanitarian Component ──
+const HumanitarianUI = () => {
+    const [amount, setAmount] = useState('');
+    const [charity, setCharity] = useState('redcrescent');
 
     return (
         <div className="space-y-6">
-            <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">بسته اینترنت مورد نظر خود را انتخاب کنید</p>
+            <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">موسسه خیریه را انتخاب کنید</p>
 
-            <div className="space-y-3">
-                {plans.map((plan, i) => (
-                    <motion.button
-                        key={plan.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.06 }}
-                        onClick={() => setSelectedPlan(plan.id)}
-                        className={`w-full omega-glass-card rounded-2xl p-4 flex items-center gap-4 transition-all text-right ${selectedPlan === plan.id ? 'neon-border-primary scale-[1.02]' : ''
-                            } ${plan.popular ? 'ring-1 ring-primary/30' : ''}`}
-                    >
-                        <div className="w-12 h-12 rounded-xl bg-violet-500/15 flex items-center justify-center flex-shrink-0">
-                            <Wifi className="w-6 h-6 text-violet-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                                <p className="text-white font-bold text-sm">{plan.data}</p>
-                                {plan.popular && (
-                                    <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[9px] font-bold">
-                                        محبوب
-                                    </span>
-                                )}
-                            </div>
-                            <p className="text-gray-500 text-[11px]">{plan.name} • {plan.speed}</p>
-                        </div>
-                        <div className="text-left flex-shrink-0">
-                            <p className="text-white font-black text-lg">{plan.price.toLocaleString()}</p>
-                            <p className="text-gray-500 text-[10px]">AFN</p>
-                        </div>
-                    </motion.button>
-                ))}
+            <div className="grid grid-cols-2 gap-3">
+                <button
+                    onClick={() => setCharity('redcrescent')}
+                    className={`p-4 rounded-2xl border transition-all ${charity === 'redcrescent' ? 'bg-violet-500/15 border-violet-500/30 text-violet-400 shadow-lg' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
+                >
+                    <span className="text-sm font-bold">هلال احمر</span>
+                </button>
+                <button
+                    onClick={() => setCharity('unicef')}
+                    className={`p-4 rounded-2xl border transition-all ${charity === 'unicef' ? 'bg-violet-500/15 border-violet-500/30 text-violet-400 shadow-lg' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
+                >
+                    <span className="text-sm font-bold">یونیسف</span>
+                </button>
+            </div>
+
+            <div>
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">مبلغ کمک (AFN)</p>
+                <input
+                    type="number"
+                    placeholder="مبلغ را وارد کنید"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white text-sm outline-none focus:border-violet-500/50 transition-colors"
+                />
             </div>
 
             <Button
-                disabled={!selectedPlan}
+                disabled={!amount}
                 className="w-full h-14 text-base font-bold bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg shadow-violet-600/20 disabled:opacity-40 disabled:shadow-none"
             >
-                <Wifi className="w-5 h-5 ml-2" />
-                خرید بسته
+                <Heart className="w-5 h-5 ml-2" />
+                پرداخت کمک
             </Button>
         </div>
     );
 };
 
-// ── Others Component ──
-const OthersUI = () => {
-    const services = [
-        { icon: '🎮', name: 'شارژ بازی', desc: 'خرید جم، کوین و آیتم' },
-        { icon: '📺', name: 'تلویزیون', desc: 'پرداخت اشتراک ماهانه' },
-        { icon: '💧', name: 'آب', desc: 'پرداخت قبض آب' },
-        { icon: '🏥', name: 'بیمه درمان', desc: 'حق بیمه ماهانه' },
-        { icon: '🎓', name: 'شهریه', desc: 'پرداخت شهریه دانشگاه' },
-        { icon: '🚗', name: 'جریمه', desc: 'جریمه ترافیکی' },
-    ];
+// ── Salary Component ──
+const SalaryUI = () => {
+    const [amount, setAmount] = useState('');
+    const [empId, setEmpId] = useState('');
 
     return (
-        <div className="space-y-4">
-            <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">سرویس‌های بیشتر</p>
-            <div className="grid grid-cols-2 gap-3">
-                {services.map((svc, i) => (
-                    <motion.button
-                        key={svc.name}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.06 }}
-                        className="omega-glass-card rounded-2xl p-5 flex flex-col items-center gap-3 text-center group"
-                    >
-                        <span className="text-3xl group-hover:scale-110 transition-transform">{svc.icon}</span>
-                        <div>
-                            <p className="text-white font-bold text-sm">{svc.name}</p>
-                            <p className="text-gray-500 text-[10px] mt-0.5">{svc.desc}</p>
-                        </div>
-                    </motion.button>
-                ))}
+        <div className="space-y-6">
+            <div>
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">شماره کارمند / شناسه</p>
+                <input
+                    type="text"
+                    placeholder="شماره کارمند را وارد کنید"
+                    value={empId}
+                    onChange={e => setEmpId(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white text-sm outline-none focus:border-white/30 transition-colors placeholder-gray-600"
+                />
             </div>
+            <div>
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">مبلغ معاش (AFN)</p>
+                <input
+                    type="number"
+                    placeholder="مبلغ پرداختی"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white text-sm outline-none focus:border-white/30 transition-colors placeholder-gray-600"
+                />
+            </div>
+            <Button
+                disabled={!empId || !amount}
+                className="w-full h-14 text-base font-bold bg-white/10 hover:bg-white/20 border border-white/10 disabled:opacity-40"
+            >
+                <Wallet className="w-5 h-5 ml-2" />
+                پرداخت معاش
+            </Button>
         </div>
     );
 };
@@ -620,10 +608,10 @@ export const ServiceDetailPage = () => {
         switch (id) {
             case 'mobile-credit': return <MobileTopupUI />;
             case 'electricity': return <ElectricityUI />;
-            case 'internet': return <InternetUI />;
+            case 'humanitarian': return <HumanitarianUI />;
             case 'flights': return <FlightsUI />;
             case 'taxes': return <TaxesUI />;
-            default: return <OthersUI />;
+            default: return <SalaryUI />;
         }
     };
 

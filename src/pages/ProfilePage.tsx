@@ -79,12 +79,7 @@ export const ProfilePage = () => {
     ] as const;
 
     return (
-        <PageTransition className="min-h-screen relative overflow-x-hidden bg-black pb-32">
-            {/* Background Orbs */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute -top-[20%] left-[10%] w-[300px] h-[300px] bg-primary/10 blur-[60px] rounded-full" />
-                <div className="absolute top-[10%] -right-[10%] w-[250px] h-[250px] bg-purple-500/10 blur-[50px] rounded-full" />
-            </div>
+        <PageTransition className="pb-32 relative">
 
             {/* Sticky Header */}
             <div className="sticky top-0 z-50 px-6 py-4 flex justify-between items-center backdrop-blur-xl bg-black/30 border-b border-white/5">

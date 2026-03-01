@@ -78,9 +78,9 @@
         "promo_title": "۲۰٪ د موبایل شارژ تخفیف",
         "promo_subtitle": "د نویو کارونکو لپاره • تر نن پایانې پورې",
         "services": {
-            "charge": "شارژ",
+            "charge": "کریدت",
             "electricity": "بریښنا",
-            "flight": "الوتنه",
+            "flight": "د طیارې تکت",
             "tax": "مالیه"
         }
     },
@@ -371,12 +371,12 @@
         "title": "خدمتونه",
         "featured": "ځانګړي",
         "all": "ټول خدمتونه",
-        "mobile_credit": "موبایل شارژ",
+        "mobile_credit": "کریدت",
         "electricity": "د بریښنا بل",
-        "internet": "انټرنیټ",
-        "flights": "الوتنه",
+        "humanitarian": "بشردوستانه مرستې",
+        "flights": "د طیارې تکت",
         "taxes": "مالیه",
-        "others": "نور"
+        "salary": "د معاشاتو تادیه"
     },
     "receipt": {
         "title": "د راکړې ورکړې رسید",

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BentoCard } from '@/shared/ui/BentoCard';
-import { Smartphone, Zap, Wifi, Plane, Building, MoreHorizontal } from 'lucide-react';
+import { Smartphone, Zap, Heart, Plane, Building, Wallet } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import { SkeletonPage } from '@/shared/ui/Skeleton';
@@ -58,10 +58,10 @@ export const ServicesPage = () => {
     const services = [
         { id: 'mobile-credit', icon: Smartphone, label: t('services.mobile_credit'), color: 'text-blue-400', bg: 'bg-blue-400/10' },
         { id: 'electricity', icon: Zap, label: t('services.electricity'), color: 'text-amber-400', bg: 'bg-amber-400/10' },
-        { id: 'internet', icon: Wifi, label: t('services.internet'), color: 'text-violet-400', bg: 'bg-violet-400/10' },
+        { id: 'humanitarian', icon: Heart, label: t('services.humanitarian'), color: 'text-violet-400', bg: 'bg-violet-400/10' },
         { id: 'flights', icon: Plane, label: t('services.flights'), color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
         { id: 'taxes', icon: Building, label: t('services.taxes'), color: 'text-rose-400', bg: 'bg-rose-400/10' },
-        { id: 'others', icon: MoreHorizontal, label: t('services.others'), color: 'text-gray-400', bg: 'bg-white/5' },
+        { id: 'salary', icon: Wallet, label: t('services.salary'), color: 'text-gray-400', bg: 'bg-white/5' },
     ];
 
     const container = {

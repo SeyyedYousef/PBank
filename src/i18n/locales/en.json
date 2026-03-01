@@ -78,9 +78,9 @@
         "promo_title": "20% off Mobile Credit",
         "promo_subtitle": "For new users • Until end of today",
         "services": {
-            "charge": "Top-up",
+            "charge": "Credit",
             "electricity": "Electric",
-            "flight": "Flight",
+            "flight": "Flight Ticket",
             "tax": "Taxes"
         }
     },
@@ -371,12 +371,12 @@
         "title": "Services",
         "featured": "Featured",
         "all": "All Services",
-        "mobile_credit": "Mobile Top-up",
-        "electricity": "Electricity",
-        "internet": "Internet",
-        "flights": "Flights",
+        "mobile_credit": "Credit",
+        "electricity": "Electricity Bill",
+        "humanitarian": "Humanitarian Aid",
+        "flights": "Flight Ticket",
         "taxes": "Taxes",
-        "others": "Others"
+        "salary": "Salary Payment"
     },
     "receipt": {
         "title": "Transaction Receipt",

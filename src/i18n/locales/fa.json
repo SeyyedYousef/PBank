@@ -78,9 +78,9 @@
         "promo_title": "۲۰٪ تخفیف شارژ موبایل",
         "promo_subtitle": "ویژه کاربران جدید • تا پایان امروز",
         "services": {
-            "charge": "شارژ",
+            "charge": "کریدت",
             "electricity": "برق",
-            "flight": "پرواز",
+            "flight": "تکت طیاره",
             "tax": "مالیات"
         }
     },
@@ -371,12 +371,12 @@
         "title": "خدمات",
         "featured": "خدمات ویژه",
         "all": "همه خدمات",
-        "mobile_credit": "شارژ موبایل",
-        "electricity": "قبض برق",
-        "internet": "اینترنت",
-        "flights": "پرواز",
+        "mobile_credit": "کریدت",
+        "electricity": "بل برق",
+        "humanitarian": "کمک‌های بشردوستانه",
+        "flights": "تکت طیاره",
         "taxes": "مالیات",
-        "others": "سایر"
+        "salary": "پرداخت معاشات"
     },
     "receipt": {
         "title": "رسید تراکنش",
