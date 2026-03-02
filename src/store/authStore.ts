@@ -8,6 +8,7 @@ export interface UserProfile {
     username?: string;
     email?: string;
     avatar?: string;
+    isKycVerified?: boolean;
 }
 
 interface AuthState {
@@ -27,6 +28,13 @@ interface AuthState {
     rotateTokens: () => Promise<void>;
     is2faEnabled: boolean;
     toggle2fa: () => void;
+
+    // App Lock PIN feature
+    appLockEnabled: boolean;
+    isAppLocked: boolean;
+    toggleAppLock: () => void;
+    lockApp: () => void;
+    unlockApp: () => void;
 }
 
 // Custom storage adapter for Zustand to use our SecureStorage
@@ -48,8 +56,13 @@ export const useAuthStore = create<AuthState>()(
             isLoading: false,
             error: null,
             is2faEnabled: false,
+            appLockEnabled: true, // Default to true for presentation
+            isAppLocked: false,
 
             toggle2fa: () => set((state) => ({ is2faEnabled: !state.is2faEnabled })),
+            toggleAppLock: () => set((state) => ({ appLockEnabled: !state.appLockEnabled })),
+            lockApp: () => set((state) => ({ isAppLocked: state.appLockEnabled })),
+            unlockApp: () => set({ isAppLocked: false }),
 
             setTempPhone: (phone) => set({ tempPhone: phone }),
 
@@ -64,7 +77,8 @@ export const useAuthStore = create<AuthState>()(
                         user: response.user,
                         accessToken: response.accessToken,
                         refreshToken: response.refreshToken,
-                        isLoading: false
+                        isLoading: false,
+                        isAppLocked: false,
                     });
 
                     // Setup silent refresh (simplified for POC)
@@ -134,6 +148,7 @@ export const useAuthStore = create<AuthState>()(
                 accessToken: state.accessToken,
                 refreshToken: state.refreshToken,
                 is2faEnabled: state.is2faEnabled,
+                appLockEnabled: state.appLockEnabled,
             }),
         }
     )

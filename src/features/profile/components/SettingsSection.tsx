@@ -1,12 +1,10 @@
 import { motion } from 'framer-motion';
-import { Moon, Sparkles, Bell, Key, Wallet, ChevronRight, Check } from 'lucide-react';
+import { Bell, Key, Wallet, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@/shared/context/ThemeContext';
 import { useSound } from '@/shared/hooks/useSound';
 
 export const SettingsSection = () => {
     const { t, i18n } = useTranslation();
-    const { theme, setTheme } = useTheme();
     const { playClick } = useSound();
 
     return (
@@ -37,36 +35,7 @@ export const SettingsSection = () => {
                 </div>
             </div>
 
-            {/* Theme Switcher */}
-            <div className="omega-glass rounded-[24px] p-5 space-y-4">
-                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">{t('settings.theme', 'تم برنامه')}</p>
-                <div className="grid grid-cols-3 gap-3">
-                    {[
-                        { id: 'dark', name: t('settings.theme_dark', 'تاریک'), icon: Moon, gradient: 'from-gray-900 to-black' },
-                        { id: 'light', name: t('settings.theme_light', 'روشن'), icon: Sparkles, gradient: 'from-gray-200 to-white' },
-                        { id: 'cyber', name: 'سایبرپانک', icon: Sparkles, gradient: 'from-purple-900 to-primary' },
-                    ].map(themeItem => (
-                        <button
-                            key={themeItem.id}
-                            onClick={() => { setTheme(themeItem.id as any); playClick(); }}
-                            className={`relative overflow-hidden flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${theme === themeItem.id
-                                ? 'border-primary/40 bg-primary/10 shadow-lg shadow-primary/10'
-                                : 'border-white/10 bg-white/5 hover:bg-white/10'
-                                }`}
-                        >
-                            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${themeItem.gradient} flex items-center justify-center border border-white/10`}>
-                                <themeItem.icon className={`w-5 h-5 ${theme === 'dark' || themeItem.id === 'dark' ? 'text-white' : (themeItem.id === 'light' ? 'text-amber-500' : 'text-white')}`} />
-                            </div>
-                            <span className={`text-xs font-bold ${themeItem.id === 'light' && theme === 'light' ? 'text-gray-800' : 'text-white'}`}>{themeItem.name}</span>
-                            {theme === themeItem.id && (
-                                <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-primary flex items-center justify-center">
-                                    <Check className="w-2 h-2 text-white" />
-                                </div>
-                            )}
-                        </button>
-                    ))}
-                </div>
-            </div>
+
 
             {/* More Settings */}
             <div className="omega-glass rounded-[24px] overflow-hidden divide-y divide-white/5">

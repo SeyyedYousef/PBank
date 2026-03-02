@@ -5,7 +5,7 @@ import { Button } from '@/shared/ui/Button';
 import { PageTransition } from '@/shared/ui/PageTransition';
 import {
     ArrowLeft, Smartphone, Zap, Heart, Plane, Building, Wallet,
-    Check, Calendar, MapPin, Users, Star, Clock, Search
+    Check, Calendar, MapPin, Users, Star, Clock, Search, Loader2
 } from 'lucide-react';
 
 // ── Service Config ──
@@ -596,15 +596,49 @@ const SalaryUI = () => {
     );
 };
 
+// ── Mini App Placeholder ──
+const MiniAppUI = () => {
+    return (
+        <div className="space-y-6 text-center py-10">
+            <div className="w-20 h-20 mx-auto rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 relative">
+                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full -z-10" />
+            </div>
+            <h2 className="text-white font-bold text-xl mb-2">در حال بارگذاری مینی اپ</h2>
+            <p className="text-gray-400 text-sm">لطفاً شکیبا باشید، در حال اتصال به سرویس ارائه‌دهنده هستیم...</p>
+            <div className="mt-8 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-start">
+                <p className="text-amber-400 text-xs font-bold mb-1">هشدار امنیتی</p>
+                <p className="text-gray-400 text-[10px] leading-relaxed">
+                    این مینی اپ توسط اشخاص ثالث توسعه یافته است. لطفاً پیش از انجام هرگونه انتقال وجه و تایید دسترسی‌ها، تمام اطلاعات را بررسی کنید.
+                </p>
+            </div>
+        </div>
+    );
+};
+
 // ── Main Page ──
 export const ServiceDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const config = serviceConfigs[id || ''] || serviceConfigs['others'];
+    let config = serviceConfigs[id || ''];
+    if (!config && id?.startsWith('mini-')) {
+        config = {
+            title: 'مینی اپلیکیشن',
+            subtitle: 'ارائه‌شده توسط شخص ثالث',
+            icon: Smartphone,
+            color: 'text-primary',
+            bgGradient: 'from-gray-600/20 to-gray-900/10',
+            glowColor: 'bg-primary/30',
+        };
+    } else if (!config) {
+        config = serviceConfigs['salary'];
+    }
+
     const IconComp = config.icon;
 
     const renderServiceUI = () => {
+        if (id?.startsWith('mini-')) return <MiniAppUI />;
         switch (id) {
             case 'mobile-credit': return <MobileTopupUI />;
             case 'electricity': return <ElectricityUI />;

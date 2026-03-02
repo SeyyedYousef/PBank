@@ -27,7 +27,8 @@ export const AuthService = {
             user: {
                 name: 'کاربر پی‌بانک',
                 username: `user_${phone.slice(-4)}`,
-                avatar: undefined
+                avatar: undefined,
+                isKycVerified: false
             },
             accessToken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Date.now()}.access_token_secure_placeholder`,
             refreshToken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Date.now()}.refresh_token_secure_placeholder`

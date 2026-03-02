@@ -47,9 +47,9 @@
     },
     "home": {
         "welcome": "خوش آمدی",
-        "balance": "موجودی کل",
-        "hide_balance": "مخفی کردن موجودی",
-        "show_balance": "نمایش موجودی",
+        "balance": "بلانس کل",
+        "hide_balance": "مخفی کردن بلانس",
+        "show_balance": "نمایش بلانس",
         "actions": {
             "transfer": "انتقال",
             "receive": "دریافت",
@@ -58,7 +58,7 @@
             "more": "بیشتر"
         },
         "quick_services": "خدمات سریع",
-        "recent_transactions": "تراکنش‌های اخیر",
+        "recent_transactions": "انتقالات اخیر",
         "view_all": "مشاهده همه",
         "promo_banner": "تخفیف ویژه شارژ موبایل",
         "greeting": {
@@ -73,7 +73,7 @@
         "quick_access": "دسترسی سریع",
         "all_services": "همه خدمات",
         "this_month": "این ماه",
-        "no_transactions": "هنوز تراکنشی ندارید",
+        "no_transactions": "هنوز انتقالی ندارید",
         "all": "همه",
         "promo_title": "۲۰٪ تخفیف شارژ موبایل",
         "promo_subtitle": "ویژه کاربران جدید • تا پایان امروز",
@@ -100,7 +100,7 @@
         "secure_keyboard": "کیبورد امن فعال است",
         "destination": {
             "label": "آدرس گیرنده",
-            "placeholder": "آدرس کیف پول گیرنده (0x...)"
+            "placeholder": "آدرس حساب گیرنده (0x...)"
         },
         "message": {
             "label": "پیام",
@@ -114,8 +114,8 @@
             "back": "بازگشت به دستی"
         },
         "submit": "تایید و انتقال",
-        "success": "تراکنش موفق بود!",
-        "fee": "کارمزد"
+        "success": "انتقال موفق بود!",
+        "fee": "کمیشن"
     },
     "receive": {
         "title": "دریافت پول",
@@ -127,7 +127,7 @@
     },
     "history": {
         "title": "تاریخچه",
-        "search_placeholder": "جستجو در تراکنش‌ها...",
+        "search_placeholder": "جستجو در انتقالها...",
         "filter": {
             "all": "همه",
             "send": "ارسال",
@@ -137,7 +137,7 @@
         "summary": {
             "total_sent": "کل ارسالی",
             "total_received": "کل دریافتی",
-            "count": "تعداد تراکنش"
+            "count": "تعداد انتقال"
         },
         "empty": "موردی یافت نشد",
         "today": "امروز",
@@ -145,12 +145,12 @@
         "this_week": "این هفته",
         "older": "قبل‌تر",
         "details": {
-            "title": "جزئیات تراکنش",
+            "title": "جزئیات انتقال",
             "counterparty": "طرف حساب",
             "amount": "مبلغ",
             "date": "تاریخ",
             "time": "ساعت",
-            "fee": "کارمزد",
+            "fee": "کمیشن",
             "note": "توضیحات",
             "message": "پیام",
             "status": "وضعیت",
@@ -159,9 +159,9 @@
             "tracking_code": "کد پیگیری",
             "tracking_copied": "کد پیگیری کپی شد",
             "share": "اشتراک رسید",
-            "repeat": "تکرار تراکنش",
-            "copy_message": "جزئیات تراکنش کپی شد",
-            "secure": "تراکنش امن",
+            "repeat": "تکرار انتقال",
+            "copy_message": "جزئیات انتقال کپی شد",
+            "secure": "انتقال امن",
             "secure_desc": "رمزنگاری شده با AES-256"
         },
         "status": {
@@ -193,7 +193,7 @@
                 "general": "تنظیمات عمومی"
             },
             "items": {
-                "password": "تغییر رمز عبور",
+                "password": "تغییر پسورد",
                 "auth_2fa": "احراز هویت دو مرحله‌ای",
                 "devices": "دستگاه‌های متصل",
                 "language": "زبان",
@@ -263,9 +263,9 @@
         },
         "password": {
             "title": "تایید هویت دو مرحله‌ای",
-            "label": "رمز عبور دوم خود را وارد کنید",
+            "label": "پسورد دوم خود را وارد کنید",
             "placeholder": "••••••••",
-            "forgot": "رمز عبور را فراموش کردم",
+            "forgot": "پسورد را فراموش کردم",
             "submit": "ورود به حساب",
             "strength": {
                 "weak": "ضعیف",
@@ -284,7 +284,7 @@
         },
         "empty": "اعلان جدیدی وجود ندارد",
         "types": {
-            "transaction": "تراکنش",
+            "transaction": "انتقال",
             "security": "امنیت",
             "reward": "جایزه",
             "promo": "تبلیغات",
@@ -301,7 +301,7 @@
         "add_phone": "شماره تلفن",
         "add_submit": "افزودن مخاطب",
         "empty": "مخاطبی یافت نشد",
-        "last_tx": "آخرین تراکنش",
+        "last_tx": "آخرین انتقال",
         "send_money": "ارسال پول",
         "edit": "ویرایش",
         "copy_phone": "کپی شماره",
@@ -314,11 +314,11 @@
         "appearance": "نمایش",
         "general": "عمومی",
         "danger_zone": "ناحیه خطر",
-        "change_password": "تغییر رمز عبور",
-        "current_password": "رمز عبور فعلی",
-        "new_password": "رمز عبور جدید",
-        "confirm_password": "تکرار رمز عبور جدید",
-        "password_changed": "رمز عبور با موفقیت تغییر یافت",
+        "change_password": "تغییر پسورد",
+        "current_password": "پسورد فعلی",
+        "new_password": "پسورد جدید",
+        "confirm_password": "تکرار پسورد جدید",
+        "password_changed": "پسورد با موفقیت تغییر یافت",
         "biometric": "ورود بیومتریک",
         "biometric_desc": "اثر انگشت / تشخیص چهره",
         "secure_keyboard": "کیبورد امن",
@@ -342,7 +342,7 @@
         "delete_account": "حذف کامل حساب",
         "delete_account_desc": "غیرقابل بازگشت",
         "delete_confirm_title": "حذف حساب کاربری",
-        "delete_confirm_body": "تمام اطلاعات، تراکنش‌ها و موجودی شما برای همیشه حذف خواهد شد. این عمل غیرقابل بازگشت است.",
+        "delete_confirm_body": "تمام اطلاعات، انتقالها و بلانس شما برای همیشه حذف خواهد شد. این عمل غیرقابل بازگشت است.",
         "terms": "شرایط استفاده",
         "privacy_policy": "سیاست حفظ حریم خصوصی",
         "licenses": "مجوزهای متن باز"
@@ -379,13 +379,13 @@
         "salary": "پرداخت معاشات"
     },
     "receipt": {
-        "title": "رسید تراکنش",
-        "success": "تراکنش موفق",
+        "title": "رسید انتقال",
+        "success": "انتقال موفق",
         "total_amount": "مبلغ کل",
         "recipient": "دریافت‌کننده",
         "tracking": "شماره پیگیری",
         "message": "پیام",
-        "fee": "کارمزد",
+        "fee": "کمیشن",
         "go_home": "بازگشت به خانه",
         "share": "اشتراک",
         "download": "ذخیره"
@@ -397,7 +397,7 @@
         "menu_button": "منو",
         "loading": "در حال بارگذاری",
         "notifications_badge": "{{count}} اعلان خوانده نشده",
-        "balance_hidden": "موجودی مخفی شده",
+        "balance_hidden": "بلانس مخفی شده",
         "toggle_on": "فعال",
         "toggle_off": "غیرفعال"
     }

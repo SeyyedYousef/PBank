@@ -116,3 +116,64 @@ export function SkeletonPage() {
         </div>
     );
 }
+
+export function SkeletonServicesPage() {
+    return (
+        <div className="p-6 space-y-8 animate-in fade-in pb-24">
+            <Skeleton className="h-44 w-full rounded-3xl" />
+            <div className="space-y-4">
+                <Skeleton className="h-4 w-32 rounded-md mb-6" />
+                <div className="grid grid-cols-2 gap-4">
+                    {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="aspect-square rounded-[32px] bg-white/[0.03] border border-white/[0.05] p-4 flex flex-col items-center justify-center gap-3">
+                            <Skeleton className="w-16 h-16 rounded-[24px]" />
+                            <Skeleton className="h-3 w-16 rounded-md" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export function SkeletonTransferPage() {
+    return (
+        <div className="p-6 space-y-8 animate-in fade-in pb-32">
+            <div className="flex gap-4 items-center">
+                <Skeleton className="w-12 h-12 rounded-full" />
+                <div className="space-y-2 flex-col justify-center flex">
+                    <Skeleton className="h-5 w-32 rounded-lg" />
+                    <Skeleton className="h-3 w-20 rounded-md" />
+                </div>
+            </div>
+
+            <Skeleton className="h-12 w-full rounded-[16px]" />
+
+            <div className="py-8 flex justify-center">
+                <Skeleton className="h-16 w-48 rounded-2xl" />
+            </div>
+
+            <div className="space-y-4">
+                <Skeleton className="h-14 w-full rounded-[16px]" />
+                <Skeleton className="h-14 w-full rounded-[16px]" />
+            </div>
+
+            <div className="space-y-3 pt-6">
+                <Skeleton className="h-4 w-32 rounded-md mb-4" />
+                {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-4 items-center p-3 rounded-[20px] bg-white/[0.03] border border-white/[0.05]">
+                        <Skeleton className="w-10 h-10 rounded-xl" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-4 w-24 rounded-md" />
+                            <Skeleton className="h-3 w-32 rounded-md" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="fixed bottom-24 left-6 right-6">
+                <Skeleton className="h-14 w-full rounded-[16px]" />
+            </div>
+        </div>
+    );
+}

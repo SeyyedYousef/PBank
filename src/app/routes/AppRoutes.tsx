@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { GeoFenceGuard } from "@/components/layout/GeoFenceGuard";
+import { AppLockScreen } from "@/features/auth/AppLockScreen";
 import { Suspense, lazy } from "react";
 import { RouteLoader } from "@/shared/ui/RouteLoader";
 
@@ -23,6 +24,7 @@ const ContactsPage = lazy(() => import("@/pages/ContactsPage").then(module => ({
 const TransactionDetailPage = lazy(() => import("@/pages/TransactionDetailPage").then(module => ({ default: module.TransactionDetailPage })));
 const QRScannerPage = lazy(() => import("@/pages/QRScannerPage").then(module => ({ default: module.QRScannerPage })));
 const AnalyticsPage = lazy(() => import("@/pages/AnalyticsPage").then(module => ({ default: module.AnalyticsPage })));
+const SupportPage = lazy(() => import("@/pages/SupportPage").then(module => ({ default: module.SupportPage })));
 
 export const AppRoutes = () => {
     const location = useLocation();
@@ -38,7 +40,9 @@ export const AppRoutes = () => {
                     <Route element={<ProtectedRoute />}>
                         <Route element={
                             <GeoFenceGuard>
-                                <MainLayout />
+                                <AppLockScreen>
+                                    <MainLayout />
+                                </AppLockScreen>
                             </GeoFenceGuard>
                         }>
                             <Route path="/" element={<HomePage />} />
@@ -56,6 +60,7 @@ export const AppRoutes = () => {
                             <Route path="/transaction/:id" element={<TransactionDetailPage />} />
                             <Route path="/scan" element={<QRScannerPage />} />
                             <Route path="/analytics" element={<AnalyticsPage />} />
+                            <Route path="/support" element={<SupportPage />} />
                         </Route>
                     </Route>
 

@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { BentoCard } from '@/shared/ui/BentoCard';
-import { Smartphone, Zap, Heart, Plane, Building, Wallet } from 'lucide-react';
+import { Smartphone, Zap, Heart, Plane, Building, Wallet, Train, Droplets, GraduationCap, QrCode, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
-import { SkeletonPage } from '@/shared/ui/Skeleton';
+import { SkeletonServicesPage } from '@/shared/ui/Skeleton';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/store/authStore';
 
 export const ServicesPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { user } = useAuthStore();
+    const [kycError, setKycError] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -17,6 +20,15 @@ export const ServicesPage = () => {
         const timer = setTimeout(() => setIsLoading(false), 200);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleServiceClick = (route: string) => {
+        if (!user?.isKycVerified) {
+            setKycError(true);
+            setTimeout(() => setKycError(false), 3000);
+            return;
+        }
+        navigate(route);
+    };
 
     const slides = [
         {
@@ -56,12 +68,19 @@ export const ServicesPage = () => {
     }, [slides.length]);
 
     const services = [
-        { id: 'mobile-credit', icon: Smartphone, label: t('services.mobile_credit'), color: 'text-blue-400', bg: 'bg-blue-400/10' },
-        { id: 'electricity', icon: Zap, label: t('services.electricity'), color: 'text-amber-400', bg: 'bg-amber-400/10' },
-        { id: 'humanitarian', icon: Heart, label: t('services.humanitarian'), color: 'text-violet-400', bg: 'bg-violet-400/10' },
-        { id: 'flights', icon: Plane, label: t('services.flights'), color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-        { id: 'taxes', icon: Building, label: t('services.taxes'), color: 'text-rose-400', bg: 'bg-rose-400/10' },
-        { id: 'salary', icon: Wallet, label: t('services.salary'), color: 'text-gray-400', bg: 'bg-white/5' },
+        { id: 'mobile-credit', icon: Smartphone, label: 'کریدت', color: 'text-blue-400', bg: 'bg-blue-400/10' },
+        { id: 'electricity', icon: Zap, label: 'بل برق', color: 'text-amber-400', bg: 'bg-amber-400/10' },
+        { id: 'humanitarian', icon: Heart, label: 'کمک‌های بشردوستانه', color: 'text-violet-400', bg: 'bg-violet-400/10' },
+        { id: 'flights', icon: Plane, label: 'تکت طیاره', color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+        { id: 'taxes', icon: Building, label: 'مالیات', color: 'text-rose-400', bg: 'bg-rose-400/10' },
+        { id: 'salary', icon: Wallet, label: 'پرداخت معاشات', color: 'text-gray-400', bg: 'bg-white/5' },
+    ];
+
+    const miniApps = [
+        { id: 'mini-mpay', icon: QrCode, label: 'M-Pay فروشگاه', developer: 'توسعه‌دهنده آزاد', color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+        { id: 'mini-water', icon: Droplets, label: 'بل آب', developer: 'آب‌رسانی (AUWSSC)', color: 'text-cyan-400', bg: 'bg-cyan-400/10' },
+        { id: 'mini-uni', icon: GraduationCap, label: 'فیس پوهنتون', developer: 'وزارت تحصیلات', color: 'text-indigo-400', bg: 'bg-indigo-400/10' },
+        { id: 'mini-train', icon: Train, label: 'تکت قطار مزار', developer: 'شرکت خط آهن', color: 'text-orange-400', bg: 'bg-orange-400/10' },
     ];
 
     const container = {
@@ -86,14 +105,29 @@ export const ServicesPage = () => {
             </header>
 
             {isLoading ? (
-                <SkeletonPage />
+                <SkeletonServicesPage />
             ) : (
                 <>
+                    {/* KYC Error Banner */}
+                    <AnimatePresence>
+                        {kycError && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0, y: -10 }}
+                                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                                exit={{ opacity: 0, height: 0, y: -10 }}
+                                className="bg-red-500/10 border border-red-500/20 rounded-[24px] p-4 flex items-center gap-3 overflow-hidden"
+                            >
+                                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                                <p className="text-sm text-red-300">برای استفاده از خدمات بانکی ابتدا باید احراز هویت (KYC) حساب خود را تکمیل کنید.</p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     {/* Featured Slider */}
                     <button
                         type="button"
                         className="relative h-48 w-full group cursor-pointer text-start outline-none focus-visible:ring-4 focus-visible:ring-primary/50 rounded-[32px] transition-shadow"
-                        onClick={() => navigate(`/services/${slides[currentSlide].id}`)}
+                        onClick={() => handleServiceClick(`/services/${slides[currentSlide].id}`)}
                         aria-label={`View details of ${slides[currentSlide].title}`}
                     >
                         <AnimatePresence mode='wait'>
@@ -121,7 +155,7 @@ export const ServicesPage = () => {
                                     </div>
 
                                     {/* 3D-like floaty element */}
-                                    <div className={`absolute -top-4 -start-4 w-24 h-24 bg-gradient-to-br ${slides[currentSlide].floatyColor} rounded-full blur-xl animate-pulse`} />
+                                    <div className={`absolute -top-4 -start-4 w-24 h-24 bg-gradient-to-br ${slides[currentSlide].floatyColor} rounded-full blur-xl animate-[pulse_4s_ease-in-out_infinite] opacity-60`} />
                                 </BentoCard>
                             </motion.div>
                         </AnimatePresence>
@@ -140,28 +174,66 @@ export const ServicesPage = () => {
                         </div>
                     </button>
 
-                    {/* Grid */}
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        animate="show"
-                        className="grid grid-cols-2 md:grid-cols-3 gap-4"
-                    >
-                        {services.map((svc) => (
-                            <BentoCard
-                                key={svc.id}
-                                variants={item}
-                                variant="heavy"
-                                onClick={() => navigate(`/services/${svc.id}`)}
-                                className="aspect-square flex flex-col items-center justify-center gap-3 p-2 cursor-pointer hover:bg-white/10 hover:border-white/20 transition-colors group"
-                            >
-                                <div className={`w-14 h-14 rounded-[20px] ${svc.bg} flex items-center justify-center mb-1 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,0,0,0.2)]`}>
-                                    <svc.icon className={`w-7 h-7 ${svc.color} drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]`} />
-                                </div>
-                                <span className="text-xs font-bold text-center text-gray-300 group-hover:text-white transition-colors">{svc.label}</span>
-                            </BentoCard>
-                        ))}
-                    </motion.div>
+                    {/* Main Services Grid */}
+                    <div className="space-y-3">
+                        <h2 className="text-white font-bold text-lg px-1">خدمات اصلی</h2>
+                        <motion.div
+                            variants={container}
+                            initial="hidden"
+                            animate="show"
+                            className="grid grid-cols-2 md:grid-cols-3 gap-4"
+                        >
+                            {services.map((svc) => (
+                                <BentoCard
+                                    key={svc.id}
+                                    variants={item}
+                                    variant="heavy"
+                                    onClick={() => handleServiceClick(`/services/${svc.id}`)}
+                                    className="aspect-square p-3 cursor-pointer hover:bg-white/10 hover:border-white/20 transition-colors group"
+                                >
+                                    <div className="flex flex-col items-center justify-center h-full gap-3 pt-2">
+                                        <div className={`w-14 h-14 rounded-[20px] ${svc.bg} flex items-center justify-center mb-1 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,0,0,0.2)]`}>
+                                            <svc.icon className={`w-7 h-7 ${svc.color} drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]`} />
+                                        </div>
+                                        <span className="text-xs font-bold text-center text-gray-300 group-hover:text-white transition-colors">{svc.label}</span>
+                                    </div>
+                                </BentoCard>
+                            ))}
+                        </motion.div>
+                    </div>
+
+                    {/* Mini Apps Section */}
+                    <div className="space-y-3 pt-6 border-t border-white/5">
+                        <div className="flex items-center justify-between px-1">
+                            <h2 className="text-white font-bold text-lg">مینی اپ‌ها <span className="text-xs font-normal text-primary-glow px-2 py-0.5 rounded-full bg-primary/20 border border-primary/30">آزمایشی</span></h2>
+                            <span className="text-gray-500 text-xs">ارائه‌شده توسط اشخاص ثالث</span>
+                        </div>
+                        <motion.div
+                            variants={container}
+                            initial="hidden"
+                            animate="show"
+                            className="grid grid-cols-1 gap-3"
+                        >
+                            {miniApps.map((app) => (
+                                <button
+                                    key={app.id}
+                                    onClick={() => handleServiceClick(`/services/mini/${app.id}`)}
+                                    className="omega-glass-card rounded-2xl p-4 flex items-center gap-4 hover:border-white/20 hover:bg-white/5 transition-all w-full text-start group"
+                                >
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110 ${app.bg}`}>
+                                        <app.icon className={`w-6 h-6 ${app.color}`} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-white font-bold text-sm mb-1">{app.label}</h3>
+                                        <p className="text-gray-500 text-[10px]">{app.developer}</p>
+                                    </div>
+                                    <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 group-hover:text-white transition-colors">
+                                        باز کردن
+                                    </div>
+                                </button>
+                            ))}
+                        </motion.div>
+                    </div>
                 </>
             )}
         </PageTransition>

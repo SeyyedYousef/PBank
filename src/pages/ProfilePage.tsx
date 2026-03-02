@@ -6,7 +6,7 @@ import { useGamification } from '@/shared/context/GamificationContext';
 
 import {
     User, LogOut, Check, Eye, EyeOff, Edit2, Crown, Shield,
-    Sparkles, BarChart3, Settings2
+    Sparkles, BarChart3, Settings2, AlertCircle
 } from 'lucide-react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { PageTransition } from '@/shared/ui/PageTransition';
@@ -19,12 +19,15 @@ import { SecuritySection } from '@/features/profile/components/SecuritySection';
 import { SettingsSection } from '@/features/profile/components/SettingsSection';
 import { AnimatedNumber } from '@/shared/ui/AnimatedNumber';
 
+import { useNavigate } from 'react-router-dom';
+
 // ═══════════════════════════════════════════════
 // MAIN PROFILE PAGE
 // ═══════════════════════════════════════════════
 export const ProfilePage = () => {
     const { t } = useTranslation();
-    const { logout, user } = useAuthStore();
+    const navigate = useNavigate();
+    const { logout, user, updateUser } = useAuthStore();
     const { balance } = useWalletStore();
     const { playClick } = useSound();
     const { isPrivacyMode, togglePrivacy } = usePrivacy();
@@ -33,6 +36,20 @@ export const ProfilePage = () => {
     const [imgError, setImgError] = useState(false);
     const [activeSection, setActiveSection] = useState<'analytics' | 'security' | 'settings'>('analytics');
     const [isLoading, setIsLoading] = useState(true);
+    const [kycError, setKycError] = useState(false);
+
+    const handleRewardsClick = () => {
+        if (!user?.isKycVerified) {
+            setKycError(true);
+            setTimeout(() => setKycError(false), 3000);
+            return;
+        }
+        navigate('/rewards');
+    };
+
+    const completeDemoKyc = () => {
+        updateUser({ isKycVerified: true });
+    };
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 200);
@@ -105,6 +122,41 @@ export const ProfilePage = () => {
                     <SkeletonProfile />
                 ) : (
                     <>
+                        {/* KYC Warning Banner */}
+                        {!user?.isKycVerified && (
+                            <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-2 h-full bg-amber-500" />
+                                <div className="flex items-start gap-3">
+                                    <AlertCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                                    <div>
+                                        <h3 className="text-amber-500 font-bold text-sm mb-1">حساب شما احراز هویت نشده است</h3>
+                                        <p className="text-amber-500/70 text-xs leading-relaxed">برای استفاده از گیمفیکیشن و افزایش سقف انتقالات، لطفاً مراحل احراز هویت (KYC) را تکمیل کنید.</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={completeDemoKyc}
+                                    className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-xs py-2 px-4 rounded-xl transition-all w-full md:w-auto flex-shrink-0"
+                                >
+                                    تکمیل احراز هویت
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Gamification Error Banner */}
+                        <AnimatePresence>
+                            {kycError && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0, y: -10 }}
+                                    animate={{ opacity: 1, height: 'auto', y: 0 }}
+                                    exit={{ opacity: 0, height: 0, y: -10 }}
+                                    className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 flex items-center gap-3 overflow-hidden mb-6"
+                                >
+                                    <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                                    <p className="text-sm text-red-300">برای ورود به بخش جایزه‌ها و گیمفیکیشن، ابتدا احراز هویت خود را تکمیل کنید.</p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
                         {/* ═══ THE HERO CARD — 3D Tilt ═══ */}
                         <div className="perspective-card">
                             <motion.div
@@ -147,10 +199,16 @@ export const ProfilePage = () => {
                                                         <Edit2 className="w-5 h-5 text-white" />
                                                     </div>
                                                 </div>
-                                                {/* Verified */}
-                                                <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-emerald-500 border-2 border-black flex items-center justify-center z-20 shadow-lg">
-                                                    <Check className="w-3 h-3 text-white stroke-[3px]" />
-                                                </div>
+                                                {/* Verified / Unverified Badge */}
+                                                {user?.isKycVerified ? (
+                                                    <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-emerald-500 border-2 border-black flex items-center justify-center z-20 shadow-lg">
+                                                        <Check className="w-3 h-3 text-white stroke-[3px]" />
+                                                    </div>
+                                                ) : (
+                                                    <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-red-500 border-2 border-black flex items-center justify-center z-20 shadow-lg" title="احراز هویت کامل نشده">
+                                                        <AlertCircle className="w-3 h-3 text-white stroke-[3px]" />
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <div>
@@ -198,7 +256,13 @@ export const ProfilePage = () => {
                                                 </motion.div>
                                             </div>
                                         </div>
-                                        <Sparkles className="w-4 h-4 text-primary-glow" />
+                                        <button
+                                            onClick={handleRewardsClick}
+                                            className="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0 hover:bg-purple-500/20 hover:scale-105 transition-all outline-none"
+                                            aria-label="بخش گیمفیکیشن و جوایز"
+                                        >
+                                            <Sparkles className="w-4 h-4 text-primary-glow" />
+                                        </button>
                                     </div>
                                 </div>
                             </motion.div>
